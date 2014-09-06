@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7"/>
+	<classpathentry kind="lib" path="jars/concordion-1.4.2.jar"/>
+	<classpathentry kind="lib" path="jars/xom-1.2.5.jar"/>
+	<classpathentry kind="lib" path="jars/ognl-2.6.9.jar"/>
+	<classpathentry kind="lib" path="jars/uispec4j-2.4-jdk16.jar"/>
+	<classpathentry kind="lib" path="jars/junit-4.11-SNAPSHOT-20120805-1225.jar"/>
+	<classpathentry kind="lib" path="jars/jemmy.jar"/>
+	<classpathentry kind="lib" path="jars/dps-2017-database-0.0.1-SNAPSHOT.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
