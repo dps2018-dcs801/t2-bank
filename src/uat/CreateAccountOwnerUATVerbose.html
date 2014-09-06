@@ -1,0 +1,113 @@
+<html xmlns:concordion="http://www.concordion.org/2007/concordion">
+    <body>
+    <h4>1.1</h4>
+<p style="margin-left: 20px">
+        Given that we are creating a new Account Owner and the last Account Owner ID is  
+        <span concordion:set="#lastAccountOwnerId">O1002</span>,
+        </p>
+ <p style="margin-left: 40px">
+         When we enter name  <span concordion:set="#name">John Smith</span>, 
+        Password is <span concordion:set="#password">J$1234</span>, 
+        </p>
+ <p style="margin-left: 60px">        
+        <span concordion:execute="#result = addOwner(#name,#password,#lastAccountOwnerId)"></span>
+        Then the New Account Owner should be Account Owner ID = <span concordion:assertEquals="#result.getId()">O1003</span>, 
+        First name = <span concordion:assertEquals="#result.getName()">John Smith</span>, 
+        Password = <span concordion:assertEquals="#result.getPassword()">J$1234</span>
+        </p>
+    
+    <h4>1.2</h4>    
+<p style="margin-left: 20px">
+        Given that we are creating a new Account Owner and the last Account Owner ID is  
+        <span concordion:set="#lastAccountOwnerId">O1002</span>,
+        </p>
+        
+ <p style="margin-left: 40px">        
+ 		When we enter name  <span concordion:set="#name">John Smith</span>, 
+        Password is <span concordion:set="#password">J$12345</span>, 
+        </p>
+ <p style="margin-left: 60px">               
+        <span concordion:execute="#result = addOwner(#name,#password,#lastAccountOwnerId)"></span>
+        Then  we should get an error message = <span concordion:assertEquals="#result.getStatus()">Password maximum 6 characters</span>
+        
+        </p>
+     <h4>1.3</h4>    
+         
+<p style="margin-left: 20px">
+        Given that we are creating a new Account Owner and the last Account Owner ID is  
+        <span concordion:set="#lastAccountOwnerId">O1002</span>,
+        </p>
+ <p style="margin-left: 40px">
+         When we enter name  <span concordion:set="#name">John Smith</span>, 
+        Password is <span concordion:set="#password">J12345</span>, 
+        </p>
+ <p style="margin-left: 60px">               
+        <span concordion:execute="#result = addOwner(#name,#password,#lastAccountOwnerId)"></span>
+        Then  we should get an error message = <span concordion:assertEquals="#result.getStatus()">Password must contain at least 1 non-alphanumeric character</span>
+        
+        </p>
+    <h4>1.4</h4>    
+        
+<p style="margin-left: 20px">
+        Given that we are creating a new Account Owner and the last Account Owner ID is  
+        <span concordion:set="#lastAccountOwnerId">O1002</span>,
+        </p>
+ <p style="margin-left: 40px">
+         When we enter name  <span concordion:set="#name">John Smith</span>, 
+        Password is <span concordion:set="#password">J$</span>, 
+        </p>
+ <p style="margin-left: 60px">       
+        <span concordion:execute="#result = addOwner(#name,#password,#lastAccountOwnerId)"></span>
+        Then the New Account Owner should be Account Owner ID = <span concordion:assertEquals="#result.getId()">O1003</span>, 
+        First name = <span concordion:assertEquals="#result.getName()">John Smith</span>, 
+        Password = <span concordion:assertEquals="#result.getPassword()">J$</span>
+        </p>
+    <h4>1.5</h4>    
+        
+<p style="margin-left: 20px">
+        Given that we are creating a new Account Owner and the last Account Owner ID is  
+        <span concordion:set="#lastAccountOwnerId">O1002</span>,
+        </p>
+ <p style="margin-left: 40px">
+         When we enter name  <span concordion:set="#name">John Smith</span>, 
+        Password <span concordion:set="#password">$#$</span>, 
+        </p>
+ <p style="margin-left: 60px">               
+        <span concordion:execute="#result = addOwner(#name,#password,#lastAccountOwnerId)"></span>
+        Then  we should get an error message = <span concordion:assertEquals="#result.getStatus()">Password must contain at least 1 alphanumeric character</span>
+        
+        </p>
+     <h4>1.6</h4>    
+        
+<p style="margin-left: 20px">
+        Given that we are creating a new Account Owner and the last Account Owner ID is  
+        <span concordion:set="#lastAccountOwnerId">O1002</span>,
+        </p>
+ <p style="margin-left: 40px">
+         When we enter name  <span concordion:set="#name">John Smith</span>, 
+        Password <span concordion:set="#password">J</span>, 
+         </p>
+ <p style="margin-left: 60px">              
+        <span concordion:execute="#result = addOwner(#name,#password,#lastAccountOwnerId)"></span>
+        Then  we should get an error message = <span concordion:assertEquals="#result.getStatus()">Password minimum 2 characters</span>   
+        </p>
+
+     <h4>1.7</h4>    
+        
+<p style="margin-left: 20px">
+        Given that we are creating a new Account Owner and the last Account Owner ID is  
+        <span concordion:set="#lastAccountOwnerId">O1002</span>,
+        </p>
+ <p style="margin-left: 40px">
+         When we enter name  <span concordion:set="#name">John Smith</span>, 
+        Password <span concordion:set="#password">J$1234</span>, 
+         </p>
+ <p style="margin-left: 60px">              
+        <span concordion:execute="#result = addOwner(#name,#password,#lastAccountOwnerId)"></span>
+        Then the New Account Owner should be - Account Owner ID = <span concordion:assertEquals="#result.getId()">O1003</span>,<br/>
+		Name = <span concordion:assertEquals="#result.getName()">John Smith</span>,<br/>
+		Password = <span concordion:assertEquals="#result.getPassword()">J$1234</span>
+        </p>
+
+    </body>
+</html>

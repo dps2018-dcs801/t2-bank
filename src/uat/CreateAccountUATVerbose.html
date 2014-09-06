@@ -1,0 +1,217 @@
+<html xmlns:concordion="http://www.concordion.org/2007/concordion">
+    <body>
+    
+<h4>2.1</h4>
+
+<p style="margin-left: 20px">
+	Given that Account Owner ID  <span concordion:set="#givenOwnerId">O1002</span> exists
+	and the Password is <span concordion:set="#expectedPassword">P@2222</span>,
+	and the next account ID for this owner is <span concordion:set="#givenAccountId">A1005</span>
+	and we are creating a new checking account
+</p>
+<p style="margin-left: 40px">
+	
+	When we enter Account Owner ID O1002
+	Password <span concordion:set="#presentedPassword">P@2222</span>,
+	Account Type <span concordion:set="#accountType">Checking</span>
+	and Balance <span concordion:set="#balance">50.00</span>
+</p>
+<p style="margin-left: 60px">
+	Then the new account<span concordion:execute="#result = addAccountToOwner(#presentedPassword, #expectedPassword, #accountType, #balance, #givenOwnerId, #givenAccountId)"></span>
+	should be Account Owner ID =  <span concordion:assertEquals="#result.ownerId">O1002</span>, 
+	Account ID = <span concordion:assertEquals="#result.getId()">A1005</span>, 
+	Account Type = <span concordion:assertEquals="#result.getAccountType()">Checking</span>, 
+	Balance = <span concordion:assertEquals="#result.getBalance()">50.00</span>
+</p>
+
+
+<h4>2.2</h4>
+
+<p style="margin-left: 20px">
+	Given that Account Owner ID  <span concordion:set="#givenOwnerId">O1002</span> does not exist
+</p>
+<p style="margin-left: 40px">
+	When we enter Account Owner ID O1002
+	Password <span concordion:set="#presentedPassword">P$1222</span>,
+	Account Type <span concordion:set="#accountType">Checking</span>
+	and Balance <span concordion:set="#balance">50.00</span>
+	</p>
+<p style="margin-left: 60px">
+	Then the new account<span concordion:execute="#result = accountDoesNotExist(#givenOwnerId)"></span>	
+	Then we should get an error message  <span concordion:assertEquals="#result">Invalid Account Owner ID</span>
+
+</p>
+
+<h4>2.3</h4>
+
+
+<p style="margin-left: 20px">
+	Given that Account Owner ID  <span concordion:set="#givenOwnerId">O1002</span> exists 
+	and the Password is <span concordion:set="#expectedPassword">P$2222</span>
+	and we are creating a new checking account.
+</p>
+<p style="margin-left: 40px">	
+
+	When we enter Account Owner O1002
+	Password <span concordion:set="#presentedPassword">P$2223</span>,
+	Account Type <span concordion:set="#accountType">Checking</span>
+	and Balance <span concordion:set="#balance">50.00</span>
+
+	<span concordion:execute="#result = addAccountToOwner(#presentedPassword, #expectedPassword, #accountType, #balance, #givenOwnerId, #givenAccountId)"></span>
+</p>
+<p style="margin-left: 60px">	
+	Then we should get an error message  <span concordion:assertEquals="#result.getStatus()">Invalid Password</span>
+
+</p>
+<h4>2.4</h4>
+
+<p style="margin-left: 20px">
+	Given that Account Owner ID  <span concordion:set="#givenOwnerId">O1002</span> exists
+	and the Password is <span concordion:set="#expectedlPassword">P$1222</span>,
+	and the last account ID for this owner is <span concordion:set="#givenAccountId">A1004</span>
+	and we are creating a new checking account
+</p>
+<p style="margin-left: 40px">	
+	When we enter Account Owner ID O1002
+	Password <span concordion:set="#presentedPassword">P$1222</span>,
+	Account Type <span concordion:set="#accountType">Checking</span>
+	and Balance <span concordion:set="#balance">-50.00</span>
+
+	<span concordion:execute="#result = accountBalanceValidation(#balance)"></span>
+</p>
+<p style="margin-left: 60px">	
+	Then we should get an error message  <span concordion:assertEquals="#result">Balance cannot be negative</span>
+
+</p>
+<h4>2.5</h4>
+
+
+<p style="margin-left: 20px">
+	Given that Account Owner ID  <span concordion:set="#givenOwnerId">O1002</span> exists
+	and the Password is <span concordion:set="#expectedlPassword">P$2222</span>,
+	and the last account ID for this owner is <span concordion:set="#givenAccountId">A1004</span>
+	and we are creating a new checking account
+</p>
+<p style="margin-left: 40px">	
+	When we enter Account Owner ID O1002
+	Password <span concordion:set="#presentedPassword">P$2222</span>,
+	Account Type <span concordion:set="#accountType">Checking</span>
+	and Balance <span concordion:set="#balance"></span>
+
+	<span concordion:execute="#result = accountBalanceValidation(#balance)"></span>
+</p>
+<p style="margin-left: 60px">	
+	Then we should get an error message  <span concordion:assertEquals="#result">Balance cannot be empty</span>
+
+</p>
+<h4>2.6</h4>
+
+
+<p style="margin-left: 20px">
+	Given that Account Owner ID  <span concordion:set="#givenOwnerId">O1002</span> exists
+	and the Password is <span concordion:set="#expectedlPassword">P$2222</span>,
+	and the last account ID for this owner is <span concordion:set="#givenAccountId">A1004</span>
+	and we are creating a new checking account
+</p>
+<p style="margin-left: 40px">	
+	When we enter Account Owner ID O1002
+	Password <span concordion:set="#presentedPassword">P$2222</span>,
+	Account Type <span concordion:set="#accountType">Checking</span>
+	and Balance <span concordion:set="#balance">   </span>
+
+	<span concordion:execute="#result = accountBalanceValidation(#balance)"></span>
+</p>
+<p style="margin-left: 60px">	
+	Then we should get an error message  <span concordion:assertEquals="#result">Balance cannot be blank</span>
+
+</p>
+
+<h4>2.7</h4>
+
+
+<p style="margin-left: 20px">
+	Given that Account Owner ID  <span concordion:set="#givenOwnerId">O1002</span> exists
+	and the Password is <span concordion:set="#expectedlPassword">P$2222</span>,
+	and the last account ID for this owner is <span concordion:set="#givenAccountId">A1004</span>
+	and we are creating a new checking account
+</p>
+<p style="margin-left: 40px">	
+	When we enter Account Owner ID O1002
+	Password <span concordion:set="#presentedPassword">P$2222</span>,
+	Account Type <span concordion:set="#accountType">Checking</span>
+	and Balance <span concordion:set="#balance">23w</span>
+
+	<span concordion:execute="#result = accountBalanceValidation(#balance)"></span>
+</p>
+<p style="margin-left: 60px">	
+	Then we should get an error message  <span concordion:assertEquals="#result">Balance must be numeric</span>
+
+</p>
+
+
+<h4>2.8</h4>
+
+<p style="margin-left: 20px">
+	Given that Account Owner ID  <span concordion:set="#givenOwnerId">O1002</span> exists
+	and the Password is <span concordion:set="#expectedlPassword">P$2222</span>,
+	and the last account ID for this owner is <span concordion:set="#givenAccountId">A1004</span>
+	and we are creating a new checking account
+</p>
+<p style="margin-left: 40px">	
+	When we enter Account Owner ID O1002
+	Password <span concordion:set="#presentedPassword">P$2222</span>,
+	Account Type <span concordion:set="#accountType">Money Market</span>
+	and Balance <span concordion:set="#balance">50</span>
+
+	<span concordion:execute="#result = accountType(#accountType)"></span>
+</p>
+<p style="margin-left: 60px">
+	Then we should get an error message  <span concordion:assertEquals="#result">Account Type invalid</span>
+	
+</p>
+
+
+<h4>2.9</h4>
+
+<p style="margin-left: 20px">
+	Given that Account Owner ID  <span concordion:set="#givenOwnerId">O1002</span> exists
+	and the Password is <span concordion:set="#expectedlPassword">P$2222</span>,
+	and the last account ID for this owner is <span concordion:set="#givenAccountId">A1004</span>
+	and we are creating a new checking account
+</p>
+<p style="margin-left: 40px">	
+	When we enter Account Owner ID O1002
+	Password <span concordion:set="#presentedPassword">P$2222</span>,
+	Account Type <span concordion:set="#accountType">Checking</span>
+	and Balance <span concordion:set="#balance">12.345</span>
+
+	<span concordion:execute="#result = accountBalanceValidation(#balance)"></span>
+</p>
+<p style="margin-left: 60px">
+	Then we should get an error message  <span concordion:assertEquals="#result">Amount must be dollars and cents</span>
+</p>
+
+<h4>2.10 (GUI Test)</h4>
+<p style="margin-left: 20px">
+
+	Given that Account Owner ID O1002 exists and the Password is P$2222 and we are creating a new checking account
+</p>
+<p style="margin-left: 40px">		
+	When we enter Account Owner O1002, Password P$2223, Account Type Checking and Balance 50.00
+</p>
+
+	<span concordion:execute="#result = validThenInvalidAccount()"></span>
+
+<p style="margin-left: 60px">
+	<span style="visibility:hidden;display:none" concordion:set="#firstMessage">0</span>
+ 	Then we should get an error message =  <span concordion:assertEquals="#result.get(#firstMessage)">Invalid Password</span> displayed in the GUI
+</p>
+<p style="margin-left: 40px">	
+ 	When we enter Account Owner O1002, Password P$2222, Account Type Checking and Balance 50.00
+</p>
+<p style="margin-left: 60px">
+	<span style="visibility:hidden;display:none" concordion:set="#secondMessage">1</span>
+ 	Then there should be <span concordion:assertEquals="#result.get(#secondMessage)"></span> nothing displayed in the error field in the GUI
+</p>
+    </body>
+</html>

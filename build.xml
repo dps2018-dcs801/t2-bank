@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- WARNING: Eclipse auto-generated file.
+              Any modifications will be overwritten.
+              To include a user specific buildfile here, simply create one in the same
+              directory with the processing instruction <?eclipse.ant.import?>
+              as the first entry and export the buildfile again. --><project basedir="." default="build" name="t1-dps2016">
+    <property environment="env"/>
+    <property name="ECLIPSE_HOME" value="../../../../Applications/eclipse"/>
+    <property name="junit.output.dir" value="junit-output"/>
+    <property name="debuglevel" value="source,lines,vars"/>
+    <property name="target" value="1.7"/>
+    <property name="source" value="1.7"/>
+    <path id="t1-dps2016.classpath">
+        <pathelement location="bin"/>
+        <pathelement location="jars/concordion-1.4.2.jar"/>
+        <pathelement location="jars/xom-1.2.5.jar"/>
+        <pathelement location="jars/ognl-2.6.9.jar"/>
+        <pathelement location="jars/uispec4j-2.4-jdk16.jar"/>
+        <pathelement location="jars/junit-4.11-SNAPSHOT-20120805-1225.jar"/>
+    </path>
+    <target name="init">
+        <mkdir dir="bin"/>
+        <copy includeemptydirs="false" todir="bin">
+            <fileset dir="src">
+                <exclude name="**/*.launch"/>
+                <exclude name="**/*.xtend"/>
+                <exclude name="**/*.java"/>
+            </fileset>
+        </copy>
+    </target>
+    <target name="clean">
+        <delete dir="bin"/>
+    </target>
+    <target depends="clean" name="cleanall"/>
+    <target depends="build-subprojects,build-project" name="build"/>
+    <target name="build-subprojects"/>
+    <target depends="init" name="build-project">
+        <echo message="${ant.project.name}: ${ant.file}"/>
+        <javac debug="true" debuglevel="${debuglevel}" destdir="bin" includeantruntime="false" source="${source}" target="${target}">
+            <src path="src"/>
+            <classpath refid="t1-dps2016.classpath"/>
+        </javac>
+    </target>
+    <target description="Build all projects which reference this project. Useful to propagate changes." name="build-refprojects"/>
+    <target description="copy Eclipse compiler jars to ant lib directory" name="init-eclipse-compiler">
+        <copy todir="${ant.library.dir}">
+            <fileset dir="${ECLIPSE_HOME}/plugins" includes="org.eclipse.jdt.core_*.jar"/>
+        </copy>
+        <unzip dest="${ant.library.dir}">
+            <patternset includes="jdtCompilerAdapter.jar"/>
+            <fileset dir="${ECLIPSE_HOME}/plugins" includes="org.eclipse.jdt.core_*.jar"/>
+        </unzip>
+    </target>
+    <target description="compile project with Eclipse compiler" name="build-eclipse-compiler">
+        <property name="build.compiler" value="org.eclipse.jdt.core.JDTCompilerAdapter"/>
+        <antcall target="build"/>
+    </target>
+    <target name="AllTests (2)">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="junit.model.AllTests" todir="${junit.output.dir}"/>
+            <classpath refid="t1-dps2016.classpath"/>
+        </junit>
+    </target>
+    <target name="AllTests">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="junit.model.AllTests" todir="${junit.output.dir}"/>
+            <classpath refid="t1-dps2016.classpath"/>
+        </junit>
+    </target>
+    <target name="DepositUATTest">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="uat.DepositUATTest" todir="${junit.output.dir}"/>
+            <classpath refid="t1-dps2016.classpath"/>
+        </junit>
+    </target>
+    <target name="PasswordUATTest">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="uat.PasswordUATTest" todir="${junit.output.dir}"/>
+            <classpath refid="t1-dps2016.classpath"/>
+        </junit>
+    </target>
+    <target name="AccountOwnerCreateView">
+        <java classname="banksystem.AccountOwnerCreateView" failonerror="true" fork="yes">
+            <classpath refid="t1-dps2016.classpath"/>
+        </java>
+    </target>
+    <target name="AccountCreateView">
+        <java classname="banksystem.AccountCreateView" failonerror="true" fork="yes">
+            <classpath refid="t1-dps2016.classpath"/>
+        </java>
+    </target>
+    <target name="DepositView">
+        <java classname="banksystem.DepositView" failonerror="true" fork="yes">
+            <classpath refid="t1-dps2016.classpath"/>
+        </java>
+    </target>
+    <target name="junitreport">
+        <junitreport todir="${junit.output.dir}">
+            <fileset dir="${junit.output.dir}">
+                <include name="TEST-*.xml"/>
+            </fileset>
+            <report format="frames" todir="${junit.output.dir}"/>
+        </junitreport>
+    </target>
+</project>
