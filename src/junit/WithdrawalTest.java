@@ -12,12 +12,12 @@ import banksystem.Withdrawal;
 public class WithdrawalTest {
 
 	@Test
-	public void nonExistingWithdrawalId() {
+	public void NonExistingWithdrawalId() {
 		assertEquals("Invalid Withdrawal ID", Withdrawal.validateWithdrawalId("W1001"));
 	}
 
 	@Test
-	public void existingWithdrawalId() {
+	public void ExistingWithdrawalId() {
 		Withdrawal withdrawalId = new Withdrawal();
 		withdrawalId.put();
 		assertEquals("W1001", withdrawalId.getId());
@@ -41,6 +41,11 @@ public class WithdrawalTest {
 		Assert.assertEquals("valid", Withdrawal.validateWithdrawalAmount(testWithdrawalAmount));
 	}
 	 
-	
+	@Test
+	public void ExistingOwnerID() {
+	//18-Entered account owner id matches existing account owner 
+		Assert.assertEquals("valid", Withdrawal.validate("O1001", "accountId", "password", "depositAmount"));
+		
+	}
 }
 
