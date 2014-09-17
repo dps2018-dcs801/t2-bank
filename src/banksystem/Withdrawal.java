@@ -55,9 +55,9 @@ public class Withdrawal implements Serializable {
 
 	public static String validate(String ownerId, String accountId,
 			String password, String depositAmount) {
+		// Modified from this point forward on 9/17/14 by MSidaras
 		
-		
-			return ( "validate(String ownerId, String accountId,String password, String depositAmount) ");
+		return (AccountOwner.validateOwnerId(ownerId));
 
 	}
 	

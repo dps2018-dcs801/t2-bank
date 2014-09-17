@@ -33,7 +33,8 @@ public class AccountOwnerTest {
 		assertEquals("O1001", accountOwner.getId());
 		assertEquals("valid", AccountOwner.validateOwnerId("O1001"));
 		assertEquals("Invalid Account Owner ID", AccountOwner.validateOwnerId("O1002"));
-
+		accountOwner.put(); //added by MSidaras on 9/17/2014 @ 03:33AM EST for second assert in WithdrawalTest.java
+		assertEquals("valid", AccountOwner.validateOwnerId("O1002"));
 	}
 	
 	@Test
