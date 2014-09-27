@@ -20,8 +20,7 @@ import org.netbeans.jemmy.util.NameComponentChooser;
 
 import banksystem.AccountCreateView;
 import banksystem.AccountOwner;
-import banksystem.AccountOwnerManager;
-import banksystem.Database;
+import database.Database;
 
 public class AccountCreateView_UI_Test {
 
@@ -99,7 +98,7 @@ public class AccountCreateView_UI_Test {
 
 		
 		AccountOwner accountOwner = new AccountOwner("Rinaldo", "P$2222");
-		AccountOwnerManager.getInstance().put(accountOwner);
+		accountOwner.put();
 		String validValues[] = { "passwordTextField:P$2223",
 				"ownerIdTextField:O1001", "accountTypeTextField:Checking",
 				"openingBalanceTextField:50.00" };

@@ -17,7 +17,7 @@ import org.netbeans.jemmy.operators.JTextFieldOperator;
 import org.netbeans.jemmy.util.NameComponentChooser;
 
 import banksystem.AccountOwnerCreateView;
-import banksystem.Database;
+import database.Database;
 
 public class AccountOwnerCreateView_UI_Test {
 
