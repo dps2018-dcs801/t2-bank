@@ -103,7 +103,8 @@ public class Deposit implements Serializable {
 
 	public static String validate(String ownerId, String accountId,
 			String password, String depositAmount) {
-		return ( "validate(String ownerId, String accountId,String password, String depositAmount) ");
+		
+		return (AccountOwner.validateOwnerId(ownerId));
 
 	}
 
