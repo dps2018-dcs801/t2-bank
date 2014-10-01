@@ -90,9 +90,9 @@ public class Transfer implements Serializable {
 		transfer.setId(transferId);
 		return (transfer);
 	}
-	public String validateWithdrawalAmount(String withdrawalAmount) {
+	public String validateTransferAmount(String transferAmount) {
 		// TODO:
-		return ("String validateWithdrawalAmount(String withdrawalAmount) {");
+		return ("String validateTransferAmount(String transferAmount) {");
 	}
 
 	public String validate(String password) {
@@ -100,9 +100,9 @@ public class Transfer implements Serializable {
 		return ("String validate(String password)");
 	}
 
-	public static String validate(String ownerId, String accountId, String password, String withdrawalAmount) {
+	public static String validate(String ownerId, String toAccountId, String fromAccountId, String password, String transferAmount) {
 		// TODO:
-		return ("String validate(String ownerId, String accountId, String password, String withdrawalAmount) ");
+		return ("String validate(String ownerId, String toAccountId, String fromAccountId, String password, String transferAmount) ");
 	}
 
 	public String transfer(String password) {
