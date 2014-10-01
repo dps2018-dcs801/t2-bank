@@ -28,5 +28,8 @@ public class Transaction  implements Serializable {
 		data.transactionId = transactionId;
 		data.transDate = new Date();  // today 		
 	}
-	
+	public String recordTransaction() {
+		// TODO:
+		return ("String recordTransaction()");
+	}
 }

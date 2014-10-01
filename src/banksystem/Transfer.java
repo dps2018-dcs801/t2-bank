@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 import database.Database;
 
-public class Transfer extends TransferInterface implements Serializable {
+public class Transfer implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -89,5 +89,24 @@ public class Transfer extends TransferInterface implements Serializable {
 		transfer.data = transferData;
 		transfer.setId(transferId);
 		return (transfer);
+	}
+	public String validateWithdrawalAmount(String withdrawalAmount) {
+		// TODO:
+		return ("String validateWithdrawalAmount(String withdrawalAmount) {");
+	}
+
+	public String validate(String password) {
+		// TODO:
+		return ("String validate(String password)");
+	}
+
+	public static String validate(String ownerId, String accountId, String password, String withdrawalAmount) {
+		// TODO:
+		return ("String validate(String ownerId, String accountId, String password, String withdrawalAmount) ");
+	}
+
+	public String transfer(String password) {
+		// TODO:
+		return ("String transfer(String password)");
 	}
 }
