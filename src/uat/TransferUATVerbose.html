@@ -1,0 +1,329 @@
+<html xmlns:concordion="http://www.concordion.org/2007/concordion">
+
+   <body>
+  All tests are using the <span concordion:set="#checking">Checking</span> account and a user name of 
+  <span concordion:set="#name">Uat Test</span>.
+
+<h4>6.1</h4>
+<p>
+Given that Account Owner ID <span concordion:set="#givenOwnerId">O1002</span> 
+exists and the Password is <span concordion:set="#password">N!</span> and
+
+<span concordion:execute="#owner = makeOwner(#givenOwnerId, #name, #password)"></span>
+
+Account ID <span concordion:set="#givenFromAccountId">A1004</span> 
+exists and the balance is <span concordion:set="#fromBalance">150.00</span> 
+
+and Account ID <span concordion:set="#givenToAccountId">A1003</span> 
+exists and the balance is <span concordion:set="#toBalance">100.00</span> 
+
+<span concordion:execute="#toAccount = makeAccount(#givenOwnerId, #givenToAccountId, #checking, #toBalance)"></span>
+<span concordion:execute="#fromAccount = makeAccount(#givenOwnerId, #givenFromAccountId, #checking, #fromBalance)"></span>
+
+and we are making a transfer
+</p>
+<p>
+When we enter Account Owner <span concordion:assertEquals="#owner.getId()">O1002</span>,
+Password N!,
+Transfer from Account ID <span concordion:assertEquals="#fromAccount.getId()">A1004</span> 
+Transfer to Account ID <span concordion:assertEquals="#toAccount.getId()">A1003</span> 
+and transfer amount <span concordion:set="#transferAmount">100</span>
+</p>
+<p>
+
+Then the account balances should be 
+<span concordion:execute="#result = makeTransfer(#password, #fromBalance, #toBalance, #transferAmount, #givenOwnerId, #givenFromAccountId, #givenToAccountId)"></span>
+
+Account Owner ID = <span concordion:assertEquals="#result.fromOwnerId">O1002</span>, 
+Account ID = <span concordion:assertEquals="#result.fromAccountId">A1004</span>, 
+Balance = <span concordion:assertEquals="#result.fromAccountBalance">50.00</span> and 
+Account Owner ID = <span concordion:assertEquals="#result.toOwnerId">O1002</span>, 
+Account ID = <span concordion:assertEquals="#result.toAccountId">A1003</span>, 
+Balance = <span concordion:assertEquals="#result.toAccountBalance">200.00</span>
+
+</p>
+
+<h4>6.2</h4>
+<p>
+Given that Account Owner ID  <span concordion:set="#givenOwnerId">O1002</span> 
+exists and the Password is <span concordion:set="#password">N!</span>, and
+Account ID <span concordion:set="#givenAccountId">A1004</span> 
+exists and the balance is <span concordion:set="#fromBalance">150.00</span> 
+and Account ID <span concordion:set="#givenAccountId">A1003</span> 
+exists and the balance is <span concordion:set="#toBalance">100.00</span> 
+and we are making a transfer
+</p>
+<p>
+When we enter Account Owner <span concordion:set="#givenOwnerId">O1002</span>,
+Password <span concordion:set="#password">N!</span>,
+Transfer from Account ID <span concordion:set="#fromAccountId">A1004</span> 
+Transfer to Account ID <span concordion:set="#toAccountId">A1003</span> 
+and transfer amount <span concordion:set="#transferAmount">250</span>
+</p>
+<p>
+
+
+Then the account balances should be 
+<span concordion:execute="#result = makeTransfer(#password, #fromBalance, #toBalance, #transferAmount, #givenOwnerId, #fromAccountId, #toAccountId)"></span>
+
+ <span concordion:set="#owner">Owner</span>
+  <span concordion:set="#checking">Checking</span>
+ 
+Then we should get an error message <span concordion:assertEquals="#result.status">Transfer amount cannot be greater than the From Account balance</span>
+
+</p>
+
+<h4>6.3</h4>
+<p>
+
+
+Given that Account Owner ID <span concordion:set="#givenOwnerId">O1002</span> 
+exists and the Password is <span concordion:set="#password">N!</span> and
+
+<span concordion:execute="#owner = makeOwner(#givenOwnerId, #name,  #password)"></span>
+
+Account ID <span concordion:set="#givenFromAccountId">A1004</span> 
+exists and the balance is <span concordion:set="#fromBalance">150.00</span> 
+
+and Account ID <span concordion:set="#givenToAccountId">A1003</span> 
+exists and the balance is <span concordion:set="#toBalance">100.00</span> 
+
+<span concordion:execute="#toAccount = makeAccount(#givenOwnerId, #givenToAccountId, #checking, #toBalance)"></span>
+<span concordion:execute="#fromAccount = makeAccount(#givenOwnerId, #givenFromAccountId, #checking, #fromBalance)"></span>
+
+and we are making a transfer
+</p>
+<p>
+When we enter Account Owner <span concordion:set="#givenOwnerId">O1002</span>,
+Password <span concordion:set="#password">N!</span>,
+Transfer from Account ID <span concordion:set="#fromAccountId">A1004</span> 
+Transfer to Account ID <span concordion:set="#toAccountId">A1003</span> 
+and transfer amount <span concordion:set="#transferAmount">150</span>
+</p>
+<p>
+
+
+Then the account balances should be 
+<span concordion:execute="#result = makeTransfer(#password, #fromBalance, #toBalance, #transferAmount, #givenOwnerId, #givenFromAccountId, #givenToAccountId)"></span>
+
+ 
+Account Owner ID = <span concordion:assertEquals="#result.fromOwnerId">O1002</span>, 
+Account ID = <span concordion:assertEquals="#result.fromAccountId">A1004</span>, 
+Balance = <span concordion:assertEquals="#result.fromAccountBalance">0.00</span> and 
+Account Owner ID = <span concordion:assertEquals="#result.toOwnerId">O1002</span>, 
+Account ID = <span concordion:assertEquals="#result.toAccountId">A1003</span>, 
+Balance = <span concordion:assertEquals="#result.toAccountBalance">250.00</span>
+
+
+</p>
+
+
+<h4>6.4</h4>
+<p>
+
+<span concordion:execute="#result = clearDatabase()"></span>
+
+Given that Account Owner ID <span concordion:set="#givenOwnerId">O1002</span> 
+exists and the Password is <span concordion:set="#password">N!</span> and
+
+<span concordion:execute="#owner = makeOwner(#givenOwnerId, #name,  #password)"></span>
+
+Account ID <span concordion:set="#givenFromAccountId">A1004</span> 
+exists and the balance is <span concordion:set="#fromBalance">150.00</span> 
+
+and Account ID <span concordion:set="#givenToAccountId">A1003</span> 
+does not exist and we are making a transfer
+</p>
+<p>
+When we enter Account Owner <span concordion:set="#givenOwnerId">O1002</span>,
+Password <span concordion:set="#password">N!</span>,
+Transfer from Account ID <span concordion:set="#givenFromAccountId">A1004</span> 
+Transfer to Account ID <span concordion:set="#toAccountId">A1003</span> 
+and transfer amount <span concordion:set="#transferAmount">100</span>
+</p>
+<p>
+
+
+<span concordion:execute="#fromAccount = makeAccount(#givenOwnerId, #givenFromAccountId, #checking, #fromBalance)"></span>
+
+<span concordion:execute="#result = makeTransfer(#password, #fromBalance, #fromBalance, #transferAmount, #givenOwnerId, #givenFromAccountId, #givenToAccountId)"></span>
+
+ Then we should get an error message <span concordion:assertEquals="#result.status">Transfer to account does not exist</span>
+ 
+
+
+
+</p>
+
+
+
+<h4>6.5</h4>
+
+<span concordion:execute="#result = clearDatabase()"></span>
+
+
+<p>
+Given that Account Owner ID <span concordion:set="#givenOwnerId">O1002</span> 
+exists and the Password is <span concordion:set="#password">N!</span> and
+
+
+Account ID <span concordion:set="#givenFromAccountId">A1004</span> 
+exists and the balance is <span concordion:set="#fromBalance">150.00</span> 
+and we are making a transfer
+
+</p>
+<p>
+When we enter Account Owner <span concordion:set="#givenOwnerId">O1002</span>,
+Password <span concordion:set="#password">N!</span>,
+
+<span concordion:execute="#owner = makeOwner(#givenOwnerId, #name,  #password)"></span>
+
+Transfer from Account ID <span concordion:set="#givenFromAccountId">A1004</span> 
+Transfer to Account ID <span concordion:set="#givenToAccountId">A1004</span> 
+and transfer amount <span concordion:set="#transferAmount">100</span>
+
+<span concordion:execute="#fromAccount = makeAccount(#givenOwnerId, #givenFromAccountId,  #checking, #fromBalance)"></span>
+</p>
+<p>
+<span concordion:execute="#result = makeTransfer(#password, #fromBalance, #fromBalance, #transferAmount, #givenOwnerId, #givenFromAccountId, #givenToAccountId)"></span>
+
+Then we should get an error message <span concordion:assertEquals="#result.status">Transfer to and from accounts must be different</span>
+ </p>
+
+
+<h4>6.6</h4>
+<p>
+<span concordion:execute="#result = clearDatabase()"></span>
+
+Given that Account Owner ID  <span concordion:set="#givenOwnerId">O1002</span> 
+exists and the Password is <span concordion:set="#password">N!</span>, and
+Account ID <span concordion:set="#givenAccountId">A1004</span> 
+exists and the balance is <span concordion:set="#fromBalance">150.00</span> 
+and Account ID <span concordion:set="#givenAccountId">A1003</span> 
+does not exist and we are making a transfer
+</p>
+<p>
+When we enter Account Owner <span concordion:set="#givenOwnerId">O1002</span>,
+Password <span concordion:set="#password">N!</span>,
+Transfer from Account ID <span concordion:set="#fromAccountId">A1003</span> 
+Transfer to Account ID <span concordion:set="#toAccountId">A1004</span> 
+and transfer amount <span concordion:set="#transferAmount">100</span>
+</p>
+<p>
+<span concordion:execute="#owner = makeOwner(#givenOwnerId, #name,  #password)"></span>
+
+<span concordion:execute="#toAccount = makeAccount(#givenOwnerId, #toAccountId, #checking, #toBalance)"></span>
+
+<span concordion:execute="#result = makeTransfer(#password, #fromBalance, #toBalance, #transferAmount, #givenOwnerId, #fromAccountId, #toAccountId)"></span>
+
+ 
+Then we should get an error message <span concordion:assertEquals="#result.status">Transfer from account does not exist</span>
+
+
+</p>
+
+
+<h4>6.7</h4>
+<p>
+<span concordion:execute="#result = clearDatabase()"></span>
+
+Given that Account Owner ID  <span concordion:set="#givenOwnerId">O1002</span> 
+exists and the Password is <span concordion:set="#password">N!</span>, and
+Account ID <span concordion:set="#givenAccountId">A1004</span> 
+exists and the balance is <span concordion:set="#fromBalance">150.00</span> 
+and Account ID <span concordion:set="#givenAccountId">A1003</span> 
+exists and the balance is <span concordion:set="#toBalance">100.00</span> 
+and we are making a transfer
+</p>
+<p>
+When we enter Account Owner <span concordion:set="#givenOwnerId">O1002</span>,
+Password <span concordion:set="#password">N!</span>,
+Transfer from Account ID <span concordion:set="#fromAccountId">A1004</span> 
+Transfer to Account ID <span concordion:set="#toAccountId">A1003</span> 
+and transfer amount <span concordion:set="#transferAmount">-250</span>
+</p>
+<p>
+<span concordion:execute="#owner = makeOwner(#givenOwnerId, #name,  #password)"></span>
+
+<span concordion:execute="#toAccount = makeAccount(#givenOwnerId, #toAccountId, #checking, #toBalance)"></span>
+<span concordion:execute="#fromAccount = makeAccount(#givenOwnerId, #fromAccountId, #checking, #fromBalance)"></span>
+
+<span concordion:execute="#result = makeTransfer(#password, #fromBalance, #toBalance, #transferAmount, #givenOwnerId, #fromAccountId, #toAccountId)"></span>
+
+ 
+Then we should get an error message <span concordion:assertEquals="#result.status">Transfer amount cannot be negative</span>
+
+
+</p>
+
+
+<h4>6.8</h4>
+<p>
+<span concordion:execute="#result = clearDatabase()"></span>
+
+Given that Account Owner ID  <span concordion:set="#givenOwnerId">O1002</span> 
+exists and the Password is <span concordion:set="#password">N!</span>, and
+Account ID <span concordion:set="#givenAccountId">A1004</span> 
+exists and the balance is <span concordion:set="#fromBalance">150.00</span> 
+and Account ID <span concordion:set="#givenAccountId">A1003</span> 
+exists and the balance is <span concordion:set="#toBalance">100.00</span> 
+and we are making a transfer
+</p>
+<p>
+When we enter Account Owner <span concordion:set="#givenOwnerId">O1002</span>,
+Password <span concordion:set="#password">N!</span>,
+Transfer from Account ID <span concordion:set="#fromAccountId">A1004</span> 
+Transfer to Account ID <span concordion:set="#toAccountId">A1003</span> 
+and transfer amount <span concordion:set="#transferAmount">1.234</span>
+</p>
+<p>
+<span concordion:execute="#owner = makeOwner(#givenOwnerId, #name,  #password)"></span>
+
+<span concordion:execute="#toAccount = makeAccount(#givenOwnerId, #toAccountId, #checking, #toBalance)"></span>
+<span concordion:execute="#fromAccount = makeAccount(#givenOwnerId, #fromAccountId, #checking, #fromBalance)"></span>
+Then the account balances should be 
+<span concordion:execute="#result = makeTransfer(#password, #fromBalance, #toBalance, #transferAmount, #givenOwnerId, #fromAccountId, #toAccountId)"></span>
+
+ 
+Then we should get an error message <span concordion:assertEquals="#result.status">Transfer amount must be dollars and cents</span>
+
+
+</p>
+
+
+<h4>6.9</h4>
+<p>
+<span concordion:execute="#result = clearDatabase()"></span>
+
+Given that Account Owner ID  <span concordion:set="#givenOwnerId">O1002</span> 
+exists and the Password is <span concordion:set="#password">N!</span>, and
+Account ID <span concordion:set="#givenAccountId">A1004</span> 
+exists and the balance is <span concordion:set="#fromBalance">150.00</span> 
+and Account ID <span concordion:set="#givenAccountId">A1003</span> 
+exists and the balance is <span concordion:set="#toBalance">100.00</span> 
+and we are making a transfer
+</p>
+<p>
+When we enter Account Owner <span concordion:set="#givenOwnerId">O1002</span>,
+Password <span concordion:set="#password">N!</span>,
+Transfer from Account ID <span concordion:set="#fromAccountId">A1004</span> 
+Transfer to Account ID <span concordion:set="#toAccountId">A1003</span> 
+and transfer amount <span concordion:set="#transferAmount">12a3</span>
+</p>
+<p>
+<span concordion:execute="#owner = makeOwner(#givenOwnerId, #name,  #password)"></span>
+
+<span concordion:execute="#toAccount = makeAccount(#givenOwnerId, #toAccountId, #checking, #toBalance)"></span>
+<span concordion:execute="#fromAccount = makeAccount(#givenOwnerId, #fromAccountId, #checking, #fromBalance)"></span>
+
+<span concordion:execute="#result = makeTransfer(#password, #fromBalance, #toBalance, #transferAmount, #givenOwnerId, #fromAccountId, #toAccountId)"></span>
+
+
+ 
+Then we should get an error message <span concordion:assertEquals="#result.status">Transfer amount must be numeric</span>
+
+
+</p>
+</body>
+</html>
+

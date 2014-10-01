@@ -1,65 +1,84 @@
 package banksystem;
 
-import database.Database;
-
 import java.io.Serializable;
 
-public class Withdrawal implements Serializable {
+import database.Database;
+
+public class Withdrawal extends WithdrawalInterface implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
+	public static String prefix = "W";
+
+	public String id;
+
 	static Database database = Database.getInstance();
-
-	public static final String prefix = "W";
-
-	String id;
 
 	public WithdrawalData data = new WithdrawalData();
 
-	public static Object validateWithdrawalId(String withdrawalId) {
-		if (Database.exists(withdrawalId) ) {
-			return ("valid");
-		} else {
-			return ("Invalid Withdrawal ID");
-		}
-
-}
-
-	public void put() {
-		setId(Database.getNextIdString(prefix));
-		database.put(Database.getNextIdString(prefix), data);
-		
+	public Withdrawal(String ownerId, String accountId, String withdrawalAmount) {
+		this.data.ownerId = ownerId;
+		this.data.accountId = accountId;
+		this.data.withdrawalAmount = withdrawalAmount;
 	}
 
-	public Object getId() {
-		return (id);
-	}
+	public Withdrawal() { }
 	
+
+	public String getOwnerId() {
+		return data.ownerId;
+	}
+
+	public void setOwnerId(String ownerId) {
+		this.data.ownerId = ownerId;
+	}
+
+	public String getAccountId() {
+		return data.accountId;
+	}
+
+	public void setAccountId(String accountId) {
+		this.data.accountId = accountId;
+	}
+
+	public String getWithdrawalAmount() {
+		return data.withdrawalAmount;
+	}
+
+	public void setWithdrawalAmount(String withdrawalAmount) {
+		this.data.withdrawalAmount = withdrawalAmount;
+	}
+
+	public String getId() {
+		return id;
+	}
+
 	public void setId(String id) {
 		this.id = id;
 	}
 
-	public static String validateWithdrawalAmount(String withdrawalAmount) {
-		//Testing withdrawal amounts cannot exceed balance. USING STUB UNTIL DEPOSIT IS FINISHED.
-		long balance = 1500;
-		
-		if (Utilities.toCents (withdrawalAmount) > balance) 
-			return "invalid";
-		else 
-			return "valid";
-	}
-	
-	public String validate(String password) {
-		return ("validate(getOwnerId(), getAccountId(), password, getDepositAmount())");
+	public static String getNextId() {
+		return (Database.getNextIdString(prefix));
 	}
 
-	public static String validate(String ownerId, String accountId,
-			String password, String depositAmount) {
-		// Modified from this point forward on 9/17/14 by MSidaras
-		
-		return (AccountOwner.validateOwnerId(ownerId));
+	public Integer getIdAsInt() {
+		return (Database.getNextIdInt(prefix));
+	}
 
+	public void put() {
+		setId(Database.getNextIdString(prefix));
+		database.put(Database.getNextIdString(prefix), data);
+	}
+
+	public static Withdrawal get(String withdrawalId) {
+		WithdrawalData withdrawalData = (WithdrawalData) Database.get(withdrawalId);
+		if (withdrawalData == null) {
+			return (null);
+		}
+		Withdrawal withdrawal = new Withdrawal();
+		withdrawal.data = withdrawalData;
+		withdrawal.setId(withdrawalId);
+		return (withdrawal);
 	}
 	
-	
-	}// end of Withdrawal class
+}
