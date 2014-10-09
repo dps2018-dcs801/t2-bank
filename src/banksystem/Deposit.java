@@ -27,17 +27,33 @@ public class Deposit implements Serializable {
 
 	
 	public static String validateDepositAmount(String depositAmount) {
-		//TODO: Return appropriate error messages like "Deposit amount cannot be space(s)"
-		return ("String validateDepositAmount(String depositAmount) ");
+		if (depositAmount.equals(""))
+			return ("Deposit amount cannot be empty");
+		else
+			if ((depositAmount.charAt(0)) == (' '))
+				return ("Deposit amount cannot be space(s)");	
+			else
+				if (Utilities.isNegative(depositAmount))
+					return ("Deposit amount cannot be negative");
+				else
+					return ("valid");
+				
 		
 	}
 
 
 
-	public String updateBalance(String password) {
+	public String updateBalance(String password, String ownerID, String accountID, String depositAmount) {
 		//TODO: Update the Balance if the 
-		return ("apply(String password)");
-
+		if (AccountOwner.authenticate(password, ownerID ) == "valid")
+		{
+			Account updateAccount = new Account ();
+			updateAccount = Account.get(accountID);
+			updateAccount.add (depositAmount);
+			return ("valid");
+		}
+		else
+			return ("Invalid Password");
 	}
 	
 	public String getOwnerId() {

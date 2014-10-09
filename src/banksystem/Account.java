@@ -14,7 +14,7 @@ public class Account implements Serializable {
 
 	static Database database = Database.getInstance();
 
-	public AccountData data = new AccountData();
+	public static AccountData data = new AccountData();
 
 	public Account(String ownerId, String accountType, String balance) {
 		this.data.ownerId = ownerId;
@@ -108,11 +108,11 @@ public class Account implements Serializable {
 		return ("valid");
 	}
 
-	public String getAccountType() {
+	public static String getAccountType() {
 		return data.accountType;
 	}
 
-	public String getBalance() {
+	public static String getBalance() {
 		return data.balance;
 	}
 
@@ -132,7 +132,7 @@ public class Account implements Serializable {
 		return (Database.getNextIdInt(prefix));
 	}
 
-	public String getOwnerId() {
+	public static String getOwnerId() {
 		return data.ownerId;
 	}
 

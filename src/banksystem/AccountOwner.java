@@ -14,7 +14,7 @@ public class AccountOwner implements Serializable {
 
 	String id;
 
-	public AccountOwnerData data = new AccountOwnerData();
+	public static AccountOwnerData data = new AccountOwnerData();
 
 	public String getId() {
 		return (id);
@@ -103,11 +103,11 @@ public class AccountOwner implements Serializable {
 		return (Database.getNextIdInt(prefix));
 	}
 
-	public String getName() {
+	public static String getName() {
 		return data.name;
 	}
 
-	public String getPassword() {
+	public static String getPassword() {
 		return data.password;
 	}
 
