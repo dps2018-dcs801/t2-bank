@@ -26,30 +26,49 @@ public class Deposit implements Serializable {
 	}
 
 	
-	public static String validateDepositAmount(String depositAmount) {
+	public String validateDepositAmount(String depositAmount) {
+		// ADDED BY MSIDARAS-TIRRITO (MST)
 		if (depositAmount.equals(""))
 			return ("Deposit amount cannot be empty");
-		else
-			if ((depositAmount.charAt(0)) == (' '))
-				return ("Deposit amount cannot be space(s)");	
-			else
-				if (Utilities.isNegative(depositAmount))
-					return ("Deposit amount cannot be negative");
-				else
-					return ("valid");
-				
 		
+		if ((depositAmount.charAt(0)) == (' '))
+			return ("Deposit amount cannot be space(s)");	
+		
+		if (Utilities.isNegative(depositAmount))
+			return ("Deposit amount cannot be negative");
+		
+		// ADDED BY PVASSEUR
+		// NOT SURE WHY STATEMENT BELOW IS STILL HERE AND COMMENTED OUT. PEDRO, CAN WE DELETE? --MST
+		// boolean NUMERIC = Utilities.VALID;
+		long cents = 0;
+		cents = Utilities.toCents(depositAmount);
+		
+		if (!Utilities.isNumeric(depositAmount)) {
+		 	return ("Deposit amount must be numeric");
+		}
+		
+		if ((cents) == 0){
+			return ("Deposit amount cannot be zero");
+		}
+		
+		if (!Utilities.isMoney(depositAmount)) {
+			return ("Amount must be dollars and cents");
+		}
+		
+		return ("valid");
+			
 	}
 
 
 
-	public String updateBalance(String password, String ownerID, String accountID, String depositAmount) {
+	public String updateBalance(String password) {
 		//TODO: Update the Balance if the 
-		if (AccountOwner.authenticate(password, ownerID ) == "valid")
+		
+		if (PasswordManager.authenticate(password, AccountOwner.getPassword()) == "valid")
 		{
 			Account updateAccount = new Account ();
-			updateAccount = Account.get(accountID);
-			updateAccount.add (depositAmount);
+			updateAccount = Account.get(this.data.accountId);
+			updateAccount.add (this.data.depositAmount);
 			return ("valid");
 		}
 		else

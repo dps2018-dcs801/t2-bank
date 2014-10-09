@@ -11,7 +11,7 @@ import banksystem.AccountOwner;
 import banksystem.Utilities;
 import banksystem.Withdrawal;
 
-public class WithdrawalTest {
+public class WithdrawalTestOLD {
 	Database dataBase = Database.getInstance();
 	
 	@Before
