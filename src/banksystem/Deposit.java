@@ -34,6 +34,7 @@ public class Deposit implements Serializable {
 		if ((depositAmount.charAt(0)) == (' '))
 			return ("Deposit amount cannot be space(s)");	
 		
+		// ADDED BY ANN SINGH
 		if (Utilities.isNegative(depositAmount))
 			return ("Deposit amount cannot be negative");
 		
@@ -63,8 +64,11 @@ public class Deposit implements Serializable {
 
 	public String updateBalance(String password) {
 		//TODO: Update the Balance if the 
+		// ADDED BY MSIDARAS-TIRRITO (MST) and ANN SINGH
 		
-		if (PasswordManager.authenticate(password, AccountOwner.getPassword()) == "valid")
+		AccountOwner newAccountOwner = new AccountOwner();
+		newAccountOwner = AccountOwner.get(this.data.ownerId);
+		if (PasswordManager.authenticate(password, newAccountOwner.getPassword()) == "valid")
 		{
 			Account updateAccount = new Account ();
 			updateAccount = Account.get(this.data.accountId);

@@ -22,21 +22,21 @@ public class DepositTest  {
   dataBase.eraseFile();
   dataBase.load();
   
-//Creating new records for AccountOwner and AccountID, so there is data in the database
+/*Creating new records for AccountOwner and AccountID, so there is data in the database
 	 AccountOwner newAccountOwner = new AccountOwner("Michael Sidaras-Tirrito", "M$09230w" );
 	 newAccountOwner.put();
 	 Account newAccount = new Account("O1001", "Checking", "50.00");
 	 newAccount.put();
 	 
 	 //Testing to verify the correct fields of data were written to the database for AccountOwner
-	 Assert.assertEquals("valid", AccountOwner.validateOwnerId("O1001"));
+	 Assert.assertEquals("valid", newAccountOwner.validateOwnerId("O1001"));
 	 Assert.assertEquals("Michael Sidaras-Tirrito", AccountOwner.getName());
-	 Assert.assertEquals("M$09230w", AccountOwner.getPassword());
+	 Assert.assertEquals("M$09230w", newAccountOwner.getPassword());
 	 
 	 //Testing to verify the correct fields of data were written to the database for Account
-	 Assert.assertEquals("O1001", Account.getOwnerId());
-	 Assert.assertEquals("Checking", Account.getAccountType());
-	 Assert.assertEquals("50.00", Account.getBalance());
+	 Assert.assertEquals("O1001", newAccount.getOwnerId());
+	 Assert.assertEquals("Checking", newAccount.getAccountType());
+	 Assert.assertEquals("50.00", newAccount.getBalance());*/
  }
 
  @After
@@ -49,12 +49,13 @@ public class DepositTest  {
  public void UpdateDeposit(){
 	 //Testing deposits will correctly calculate balance. UAT 3.1
 	 Deposit newDeposit = new Deposit("O1001", "A1001", "100.00");
+	 Account newAccount = new Account("01001", "Checking", "50.00");
 	 Assert.assertEquals("Invalid Password", newDeposit.updateBalance("P$2222"));
 	 Assert.assertEquals("valid", newDeposit.updateBalance("M$09230w"));
-	 Assert.assertEquals("150.00", Account.getBalance());
+	 Assert.assertEquals("150.00", newAccount.getBalance());
 	 newDeposit.put();
 	 Assert.assertEquals("valid", newDeposit.updateBalance("M$09230w"));
-	 Assert.assertEquals("250.00", Account.getBalance());
+	 Assert.assertEquals("250.00", newAccount.getBalance());
  }
  
  @Test 
@@ -147,6 +148,27 @@ public class DepositTest  {
 	 //Assert.assertEquals("Amount must be dollars and cents", deposit1.validateDepositAmount("1.23")); // red
       Assert.assertEquals("valid", deposit1.validateDepositAmount("1.23")); // green
 }
-
+ 
+//Michael Powell
+ 
+ public void testAccountOwnerId() {
+	 AccountOwner accountOwner1 = new AccountOwner("John Doe", "PW1@");
+	 Account account1 = new Account("O1001","Checking","1.00");
+	 Deposit deposit1 = new Deposit ("O1001","A1004","1.00");
+	 Assert.assertEquals("Invalid Account Owner ID", accountOwner1.validateOwnerId("O1001")); // red
+	 // Assert.assertEquals("valid", accountOwner1.validateOwnerId("O1001")); // green
+	 // Assert.assertEquals("Invalid Account Owner ID", accountOwner1.validateOwnerId("O1002")); // green
+	 //Assert.assertEquals("valid", accountOwner1.validateOwnerId("O1002")); // red
+ }
+/*
+ public void testAccountOwnerPassword() {
+	 AccountOwner accountOwner1 = new AccountOwner("John Doe", " PW1@ ");
+	 Account account1 = new Account("O1002","Checking","1.00");
+	 Deposit deposit1 = new Deposit ("O1002","A1004","1.00");
+	 // Assert.assertEquals("Invalid Password", accountOwner1.validateOwnerPassword("PW1@")); // red
+	 // Assert.assertEquals("Invalid Account Owner ID", accountOwner1. validateOwnerPassword ("P$2222)); // green
+	 // Assert.assertEquals("valid", accountOwner1. validateOwnerPassword ("PW1@")); // green
+	 Assert.assertEquals("valid", accountOwner1. validateOwnerPassword ("P$2222")); // red
+*/
  
 }//End DepositTest
