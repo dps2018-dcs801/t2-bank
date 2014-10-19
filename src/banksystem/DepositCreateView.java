@@ -55,6 +55,8 @@ public class DepositCreateView extends JPanel {
 	 * Create the panel.
 	 */
 	public DepositCreateView() {
+		database.load();
+
 		addContainerListener(new ContainerAdapter() {
 			@Override
 			public void componentAdded(ContainerEvent arg0) {

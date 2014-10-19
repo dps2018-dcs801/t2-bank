@@ -51,6 +51,8 @@ public class AccountOwnerCreateView extends JPanel {
 	 * Create the panel.
 	 */
 	public AccountOwnerCreateView() {
+		database.load();
+
 		setMinimumSize(new Dimension(600, 400));
 		addContainerListener(new ContainerAdapter() {
 			@Override
