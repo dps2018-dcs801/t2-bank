@@ -14,7 +14,7 @@ public class Account implements Serializable {
 
 	static Database database = Database.getInstance();
 
-	public static AccountData data = new AccountData();
+	public AccountData data = new AccountData();
 
 	public Account(String ownerId, String accountType, String balance) {
 		this.data.ownerId = ownerId;

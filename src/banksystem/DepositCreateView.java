@@ -124,8 +124,9 @@ public class DepositCreateView extends JPanel {
 						errorMessageLabel.setText(result);
 					}
 				} catch (Exception e) {
-					errorMessageLabel.setText("Fail:" + e.getMessage());
-				}
+				     errorMessageLabel.setText("Fail:" + e.getMessage());
+				     e.printStackTrace();
+				    }
 			}
 
 		});

@@ -68,6 +68,7 @@ public class Deposit implements Serializable {
 		
 		AccountOwner newAccountOwner = new AccountOwner();
 		newAccountOwner = AccountOwner.get(this.data.ownerId);
+		System.out.println ( this.data.ownerId + " " +  newAccountOwner );
 		if (PasswordManager.authenticate(password, newAccountOwner.getPassword()) == "valid")
 		{
 			Account updateAccount = new Account ();
