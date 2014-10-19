@@ -48,7 +48,7 @@ public class AccountOwner implements Serializable {
 		}
 	}
 
-	public String validateOwnerId(String ownerId) {
+	public static String validateOwnerId(String ownerId) {
 		if (Database.exists(ownerId) ) {
 			return ("valid");
 		} else {
