@@ -66,14 +66,13 @@ public class Deposit implements Serializable {
 		//TODO: Update the Balance if the 
 		// ADDED BY MSIDARAS-TIRRITO (MST) and ANN SINGH
 		
-		AccountOwner newAccountOwner = new AccountOwner();
-		newAccountOwner = AccountOwner.get(this.data.ownerId);
+		AccountOwner newAccountOwner = AccountOwner.get(this.data.ownerId);
 		System.out.println ( this.data.ownerId + " " +  newAccountOwner );
 		if (PasswordManager.authenticate(password, newAccountOwner.getPassword()) == "valid")
 		{
-			Account updateAccount = new Account ();
-			updateAccount = Account.get(this.data.accountId);
+			Account updateAccount = Account.get(this.data.accountId);
 			updateAccount.add (this.data.depositAmount);
+			updateAccount.put();
 			return ("valid");
 		}
 		else
