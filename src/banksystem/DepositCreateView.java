@@ -118,17 +118,20 @@ public class DepositCreateView extends JPanel {
 				String password = passwordLabel.getText();
 				String depositAmount = depositAmountTextField.getText();
 				try {
-					Deposit deposit = new Deposit(ownerId,accountId, depositAmount);
+					Deposit deposit = new Deposit(ownerId, accountId, depositAmount);
 					String result = deposit.updateBalance (password);
+					Database.dump(result);
 					if (result.equals("valid")) {
+						deposit.put();
 						depositIdLabel.setText(Deposit.getNextId());
 					} else {
 						errorMessageLabel.setText(result);
+						errorMessageLabel.setVisible(true);
 					}
+				
 				} catch (Exception e) {
-				     errorMessageLabel.setText("Fail:" + e.getMessage());
-				     e.printStackTrace();
-				    }
+					errorMessageLabel.setText("Contact the System Admin, Deposit View Failed  " + e.getMessage());
+				}
 			}
 
 		});
