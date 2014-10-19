@@ -4,6 +4,8 @@ import java.io.Serializable;
 
 public class AccountOwnerData implements Serializable {
 
+
+
 	/**
 	 * 
 	 */
@@ -13,5 +15,9 @@ public class AccountOwnerData implements Serializable {
 
 	public AccountOwnerData() {
 	}
-
+	
+	@Override
+	public String toString() {
+		return "AccountOwnerData [name=" + name + ", password=" + password + "]";
+	}
 }
