@@ -27,20 +27,15 @@ public class Deposit implements Serializable {
 
 	
 	public String validateDepositAmount(String depositAmount) {
-		// ADDED BY MSIDARAS-TIRRITO (MST)
 		if (depositAmount.equals(""))
 			return ("Deposit amount cannot be empty");
 		
 		if ((depositAmount.charAt(0)) == (' '))
 			return ("Deposit amount cannot be space(s)");	
 		
-		// ADDED BY ANN SINGH
 		if (Utilities.isNegative(depositAmount))
 			return ("Deposit amount cannot be negative");
 		
-		// ADDED BY PVASSEUR
-		// NOT SURE WHY STATEMENT BELOW IS STILL HERE AND COMMENTED OUT. PEDRO, CAN WE DELETE? --MST
-		// boolean NUMERIC = Utilities.VALID;
 		long cents = 0;
 		cents = Utilities.toCents(depositAmount);
 		
@@ -63,20 +58,35 @@ public class Deposit implements Serializable {
 
 
 	public String updateBalance(String password) {
-		//TODO: Update the Balance if the 
-		// ADDED BY MSIDARAS-TIRRITO (MST) and ANN SINGH
-		
 		AccountOwner newAccountOwner = AccountOwner.get(this.data.ownerId);
 		System.out.println ( this.data.ownerId + " " +  newAccountOwner );
-		if (PasswordManager.authenticate(password, newAccountOwner.getPassword()) == "valid")
-		{
-			Account updateAccount = Account.get(this.data.accountId);
-			updateAccount.add (this.data.depositAmount);
-			updateAccount.put();
-			return ("valid");
-		}
+		if (AccountOwner.validateOwnerId(this.data.ownerId).equals("valid"))
+			if (PasswordManager.authenticate(password, newAccountOwner.getPassword()) == "valid")
+			{
+				if (Account.validateAccountExists(this.data.accountId).equals("valid"))
+				{
+					
+					Account updateAccount = Account.get(this.data.accountId);
+					if (updateAccount.getOwnerId().equals(this.data.ownerId))
+					{
+						if (validateDepositAmount(this.data.depositAmount).equals("valid"))
+						{
+							updateAccount.add (this.data.depositAmount);
+							return ("valid");
+						}
+						else
+							return (validateDepositAmount(this.data.depositAmount));
+					}
+					else
+						return ("Invalid Account ID");
+				}
+				else
+					return (Account.validateAccountExists(this.data.accountId));
+			}
+			else
+				return ("Invalid Password");
 		else
-			return ("Invalid Password");
+			return (AccountOwner.validateOwnerId(this.data.ownerId));
 	}
 	
 	public String getOwnerId() {

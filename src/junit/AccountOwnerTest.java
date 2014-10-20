@@ -23,7 +23,7 @@ public class AccountOwnerTest {
 
 	@Test
 	public void nonExistingOwner() {
-		assertEquals("Invalid Account Owner ID", AccountOwner.validateOwnerId("O1001"));// Changed by Team2
+		assertEquals("Invalid Account Owner ID", AccountOwner.validateOwnerId("O1001"));
 	}
 	
 	@Test
