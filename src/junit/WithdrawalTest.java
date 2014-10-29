@@ -66,7 +66,11 @@ public class WithdrawalTest  {
 	 //Assert.assertEquals("valid", deposit.validateDepositAmount("-110"));
 	 Assert.assertEquals("Deposit amount cannot be negative", deposit.validateDepositAmount("-110"));
  }
-
+ public void WithdrawalNotNegative() { 
+	    //Testing deposits do not contain a negative amount. UAT 5.2
+	    Withdrawal withdrawal = new withdrawal();
+	    //Assert.assertEquals("valid", withdrawal.validateWithdrawalAmount("-100"));
+	    Assert.assertEquals("Withdrawal amount cannot be negative", Withdrawal.validateWithdrawalAmount("-100"));
 
  @Test
  public void notSpaces() {
