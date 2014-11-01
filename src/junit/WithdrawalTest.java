@@ -63,6 +63,24 @@ public class WithdrawalTest  {
 	    //Assert.assertEquals("valid", withdrawal.validateWithdrawalAmount("-100"));
 	    Assert.assertEquals("Withdrawal amount cannot be negative", withdrawal.validateWithdrawalAmount("-100"));
  }
+ 
+ @Test 
+//5.7
+public void testWithdrawalAmountIsNumeric() {
+Withdrawal withdrawal1 = new Withdrawal ("O1002","A1004","1.00");
+Assert.assertEquals("Withdrawal amount must be numeric",  withdrawal1.validateWithdrawalAmount("23w")); 
+Assert.assertEquals("valid", withdrawal1.validateWithdrawalAmount("23.00")) ; 
+}
+
+ @Test 
+//5.8
+public void testwithdrawalAmountMustBeDollarsAndCents () {
+Withdrawal withdrawal1 = new Withdrawal ("O1002","A1004","50.00");
+Assert.assertEquals("Amount must be dollars and cents", withdrawal1.validateWithdrawalAmount("1.234"));
+Assert.assertEquals("valid", withdrawal1.validateWithdrawalAmount("1.23")); 
+}
+
+ 
 /*
  @Test
  public void notSpaces() {
@@ -94,29 +112,7 @@ public class WithdrawalTest  {
 	 Assert.assertEquals("valid", deposit1.validateDepositAmount("1.00")) ; 
 }
 
- 
- @Test 
- public void testDepositAmountIsNumeric() {
-	 //Testing to make sure only numeric input is allowed, and not any string input. UAT 3.6
-	 
-	 Deposit deposit1 = new Deposit ("O1002","A1004","1.00");
-	 //Assert.assertEquals("valid", deposit1.validateDepositAmount("23w")) ;
-	 Assert.assertEquals("Deposit amount must be numeric", deposit1.validateDepositAmount("23w")); 
-	 //Assert.assertEquals("Deposit amount must be numeric", deposit1.validateDepositAmount("23.00"));
- 	 Assert.assertEquals("valid", deposit1.validateDepositAmount("23.00")) ; 
- }
- 
- @Test 
- public void testDepositAmountMustBeDollarsAndCents () {
-	 //Testing to make sure numeric data fits precision of dollar values, to two decimals. UAT 3.9
-	 
-	 Deposit deposit1 = new Deposit ("O1002","A1004","50.00");
-	//Assert.assertEquals("valid", deposit1.validateDepositAmount("1.234"));
-	 Assert.assertEquals("Amount must be dollars and cents", deposit1.validateDepositAmount("1.234"));
-	 //Assert.assertEquals("Amount must be dollars and cents", deposit1.validateDepositAmount("1.23")); 
-      Assert.assertEquals("valid", deposit1.validateDepositAmount("1.23")); 
-}
- 
+
  @Test
  public void testAccountOwnerId() {
 	 AccountOwner accountOwner1 = new AccountOwner("John Doe", "PW1@");

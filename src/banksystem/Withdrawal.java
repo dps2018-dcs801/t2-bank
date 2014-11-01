@@ -83,6 +83,11 @@ public class Withdrawal implements Serializable {
 	public String validateWithdrawalAmount(String withdrawalAmount) {
 		if (Utilities.isNegative(withdrawalAmount))
 			return ("Withdrawal amount cannot be negative");
+		if (!Utilities.isNumeric(withdrawalAmount)) {
+		 	return ("Withdrawal amount must be numeric");}
+		if (!Utilities.isMoney(withdrawalAmount)) {
+			return ("Amount must be dollars and cents");}
+		
 		return ("valid");
 	}
 
