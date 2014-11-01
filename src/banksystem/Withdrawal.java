@@ -81,8 +81,9 @@ public class Withdrawal implements Serializable {
 		return (withdrawal);
 	}
 	public String validateWithdrawalAmount(String withdrawalAmount) {
-		// TODO:
-		return ("String validateWithdrawalAmount(String withdrawalAmount) {");
+		if (Utilities.isNegative(withdrawalAmount))
+			return ("Withdrawal amount cannot be negative");
+		return ("valid");
 	}
 
 	public String validate(String password) {
@@ -96,7 +97,19 @@ public class Withdrawal implements Serializable {
 	}
 
 	public String updateBalance(String password) {
-		// TODO:
-		return ("String updateBalance(String password)");
+		AccountOwner newAccountOwner = AccountOwner.get(this.data.ownerId);
+		System.out.println ( this.data.ownerId + " " +  newAccountOwner );
+		if (AccountOwner.validateOwnerId(this.data.ownerId).equals("valid"))
+			if (PasswordManager.authenticate(password, newAccountOwner.getPassword()) == "valid")
+			{
+				Account newAccount = Account.get(this.data.accountId);
+				newAccount.subtract(this.data.withdrawalAmount);
+				return ("valid");
+			}
+			else
+				return (AccountOwner.authenticate(password, this.data.ownerId));
+		else
+			return (AccountOwner.validateOwnerId(this.data.ownerId));
 	}
 }
+	

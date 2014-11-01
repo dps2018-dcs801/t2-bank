@@ -11,6 +11,7 @@ import banksystem.Deposit;
 import banksystem.DepositData;
 import banksystem.PasswordManager;
 import banksystem.Utilities;
+import banksystem.Withdrawal;
 import database.Database;
 
 public class WithdrawalTest  {
@@ -28,6 +29,7 @@ public class WithdrawalTest  {
  public void tearDown() throws Exception {
  }
 
+/*
  @Test
  public void UpdateDeposit(){
 	//Testing deposits update and calculate properly. UAT 3.1
@@ -43,35 +45,50 @@ public class WithdrawalTest  {
 	 Assert.assertEquals("valid", newDeposit.updateBalance("M$09230w"));
 	 Assert.assertEquals("250.00", newAccount.getBalance());
 	 
- }
+ } */
+ 
+ @Test
  public void UpdateWithdrawal(){
 	    //Testing withdrawal amount and update account to new balance. UAT 5.1
-	        Withdrawal withdrawal1= new Withdrawal ("O1002","A1004","50.00");
-	    Withdrawal newWithdrawal = new Withdrawal("O1002", "A1004", "50.00");
-	    Account newAccount = new Account("O1002", "Checking", "50.00");
-	    newAccount.put();
-	    AccountOwner newAccountOwner = new AccountOwner("", "");
+	 	AccountOwner newAccountOwner = new AccountOwner("Michael Powell", "P$1111");
 	    newAccountOwner.put();
+	    AccountOwner newAccountOwner2 = new AccountOwner("Ann Singh", "P$2222");
+	    newAccountOwner2.put();
+	    
+	    
+	 	Account newAccount = new Account("O1001", "Checking", "50.00");
+	    newAccount.put();
+	    Account newAccount2 = new Account("O1001", "Savings", "50.00");
+	    newAccount2.put();
+	    Account newAccount3 = new Account("O1002", "Savings", "50.00");
+	    newAccount3.put();
+	    Account newAccount4 = new Account("O1002", "Checking", "100.00");
+	    newAccount4.put();
+	    
+	    
+	 	Withdrawal newWithdrawal = new Withdrawal("O1002", "A1004", "50.00");
+	    
 	    Assert.assertEquals("Invalid Password", newWithdrawal.updateBalance("P@1234"));
-	    Assert.assertEquals("valid", newWithdrawalt.updateBalance("P$2222”));
-	    Assert.assertEquals("100.00", newAccount.getBalance());
-	    newDeposit.put();
 	    Assert.assertEquals("valid", newWithdrawal.updateBalance("P$2222"));
-	    Assert.assertEquals("50.00", newAccount.getBalance());
- 
+	    Assert.assertEquals("50.00", newAccount4.getBalance());
+ }
+ /*
  @Test 
  public void DepositNotNegative() { 
 	//Testing deposits do not contain a negative amount. UAT 3.2
 	 Deposit deposit = new Deposit();
 	 //Assert.assertEquals("valid", deposit.validateDepositAmount("-110"));
 	 Assert.assertEquals("Deposit amount cannot be negative", deposit.validateDepositAmount("-110"));
- }
+ } */
+ 
+ @Test
  public void WithdrawalNotNegative() { 
 	    //Testing deposits do not contain a negative amount. UAT 5.2
-	    Withdrawal withdrawal = new withdrawal();
+	    Withdrawal withdrawal = new Withdrawal();
 	    //Assert.assertEquals("valid", withdrawal.validateWithdrawalAmount("-100"));
-	    Assert.assertEquals("Withdrawal amount cannot be negative", Withdrawal.validateWithdrawalAmount("-100"));
-
+	    Assert.assertEquals("Withdrawal amount cannot be negative", withdrawal.validateWithdrawalAmount("-100"));
+ }
+/*
  @Test
  public void notSpaces() {
 	 //Testing a new deposit for correct values.  No spaces allowed. UAT 3.3
@@ -150,5 +167,6 @@ public class WithdrawalTest  {
 	 //Assert.assertEquals("Invalid Password", (PasswordManager.authenticate(accountOwner1.getPassword(), "PW1@")));
 	 Assert.assertEquals("valid", (PasswordManager.authenticate(accountOwner1.getPassword(), "PW1@"))); 
 	 
- }
+ } */
+ 
 }//End DepositTest
