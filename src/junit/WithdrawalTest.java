@@ -29,24 +29,6 @@ public class WithdrawalTest  {
  public void tearDown() throws Exception {
  }
 
-/*
- @Test
- public void UpdateDeposit(){
-	//Testing deposits update and calculate properly. UAT 3.1
-	 Deposit newDeposit = new Deposit("O1001", "A1001", "100.00");
-	 Account newAccount = new Account("O1001", "Checking", "50.00");
-	 newAccount.put();
-	 AccountOwner newAccountOwner = new AccountOwner("Michael", "M$09230w");
-	 newAccountOwner.put();
-	 Assert.assertEquals("Invalid Password", newDeposit.updateBalance("P$2222"));
-	 Assert.assertEquals("valid", newDeposit.updateBalance("M$09230w"));
-	 Assert.assertEquals("150.00", newAccount.getBalance());
-	 newDeposit.put();
-	 Assert.assertEquals("valid", newDeposit.updateBalance("M$09230w"));
-	 Assert.assertEquals("250.00", newAccount.getBalance());
-	 
- } */
- 
  @Test
  public void UpdateWithdrawal(){
 	    //Testing withdrawal amount and update account to new balance. UAT 5.1
@@ -72,14 +54,7 @@ public class WithdrawalTest  {
 	    Assert.assertEquals("valid", newWithdrawal.updateBalance("P$2222"));
 	    Assert.assertEquals("50.00", newAccount4.getBalance());
  }
- /*
- @Test 
- public void DepositNotNegative() { 
-	//Testing deposits do not contain a negative amount. UAT 3.2
-	 Deposit deposit = new Deposit();
-	 //Assert.assertEquals("valid", deposit.validateDepositAmount("-110"));
-	 Assert.assertEquals("Deposit amount cannot be negative", deposit.validateDepositAmount("-110"));
- } */
+
  
  @Test
  public void WithdrawalNotNegative() { 
