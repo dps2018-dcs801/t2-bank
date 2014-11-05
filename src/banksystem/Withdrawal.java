@@ -116,5 +116,24 @@ public class Withdrawal implements Serializable {
 		else
 			return (AccountOwner.validateOwnerId(this.data.ownerId));
 	}
+	// Inserted Testing withdrawal amounts cannot be blank.  PVasseur 11/1/14
+		public static String validateWithdrawalAmountNotBlank(String withdrawalAmount) {
+			
+			
+				if (!Utilities.isNumeric(withdrawalAmount)) 
+					return ("Withdrawal amount cannot be blank");
+			 	else
+					return "valid";	
+				}
+		 	
+		// Inserted Testing withdrawal amounts cannot be zero. PVasseur 11/1/14
+			public static String validateWithdrawalAmountCannotBeZero(String withdrawalAmount) {
+				long cents = 0;
+				cents = Utilities.toCents(withdrawalAmount);
+			 	if ((cents) == 0)
+				    return ("Withdrawal amount cannot be zero");
+				        else
+					return "valid";	
+			 	}
 }
 	

@@ -139,5 +139,30 @@ Assert.assertEquals("valid", withdrawal1.validateWithdrawalAmount("1.23"));
 	 Assert.assertEquals("valid", (PasswordManager.authenticate(accountOwner1.getPassword(), "PW1@"))); 
 	 
  } */
- 
+  @Test
+	/* 5.9  by PVasseur - Given that Account Owner ID O1002 exists and the Password is P$2222 and account ID A1004 exists 
+	 and the balance is 100 and we are making a withdrawal
+     When we enter Account Owner O1002, Password P$2222, Account ID A1004 and withdrawal amount space(s)
+       then we should get an error message = Withdrawal amount cannot be blank */
+	public void TestWithdrawalAmountCannotBeBlank() {
+	 //Modified on 10/30/14 by PVasseur
+	 // Assert.assertEquals("valid", Withdrawal.validateWithdrawalAmountNotBlank("1.00")); // green
+     // Assert.assertEquals("Withdrawal amount cannot be blank", Withdrawal.validateWithdrawalAmountNotBlank(" "));	//green
+     // Assert.assertEquals("valid", Withdrawal.validateWithdrawalAmountNotBlank(" ")); // red
+     // Assert.assertEquals("Withdrawal amount cannot be blank", Withdrawal.validateWithdrawalAmountNotBlank("1.00"));	//red
+		}
+	
+  @Test
+	/* 5.10  by PVasseur -  Given that Account Owner ID O1002 exists and the Password is P$2222 and account ID A1004 exists 
+	 and the balance is 100 and we are making a withdrawal
+     When we enter Account Owner O1002, Password P$2222, Account ID A1004 and withdrawal amount is zero
+      Then we should get an error message = Withdrawal amount cannot be zero */
+ 	public void TestWithdrawalAmountCannotBeZero() {
+	 //Modified on 10/31/14 by PVasseur
+	 //	Assert.assertEquals("valid", Withdrawal.validateWithdrawalAmountCannotBeZero("1.00")); // green
+     //	Assert.assertEquals("Withdrawal amount cannot be zero", Withdrawal.validateWithdrawalAmountCannotBeZero("0.00"));//green
+     // Assert.assertEquals("valid", Withdrawal.validateWithdrawalAmountCannotBeZero("0.00")); // red
+     //	Assert.assertEquals("Withdrawal amount cannot be zero", Withdrawal.validateWithdrawalAmountCannotBeZero("1.00"));//red	
+		   }
+  
 }//End DepositTest
