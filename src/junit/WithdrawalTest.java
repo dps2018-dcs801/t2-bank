@@ -64,6 +64,38 @@ public class WithdrawalTest  {
 	 Assert.assertEquals("Withdrawal amount cannot be negative", withdrawal.validateWithdrawalAmount("-100"));
  }
  
+ 
+ @Test
+ public void amountNotGreaterThanBalance() {
+	//Testing withdrawal amounts are not greater than balances, so there cannot be negative balances after withdrawing. UAT 5.5
+	 AccountOwner newAccountOwner = new AccountOwner("Michael Powell", "P$1111");
+    newAccountOwner.put();
+    AccountOwner newAccountOwner2 = new AccountOwner("Ann Singh", "P$2222");
+    newAccountOwner2.put();
+    
+    
+ 	Account newAccount = new Account("O1001", "Checking", "50.00");
+    newAccount.put();
+    Account newAccount2 = new Account("O1001", "Savings", "50.00");
+    newAccount2.put();
+    Account newAccount3 = new Account("O1002", "Savings", "50.00");
+    newAccount3.put();
+    Account newAccount4 = new Account("O1002", "Checking", "100.00");
+    newAccount4.put();
+	 
+	 Withdrawal newWithdrawal = new Withdrawal("O1002", "A1004", "250.00");
+	 System.out.println ("The account id for newWithdrawal is " +  newWithdrawal.getAccountId() );
+	 Assert.assertEquals("Withdrawal amount cannot be greater than balance", newWithdrawal.validateWithdrawalAmount("250.00")); 
+ }
+ 
+ 
+ @Test
+ public void notEmpty() {
+	 //Testing withdrawals do not contain empty values. UAT 5.6
+ 	 Withdrawal newWithdrawal = new Withdrawal("O1001","A1001","");
+	 Assert.assertEquals("Withdrawal amount cannot be empty", newWithdrawal.validateWithdrawalAmount(""));
+ }
+ 
  @Test 
 public void testWithdrawalAmountIsNumeric() {
 	//Testing withdrawals do not contain any char or string data. UAT 5.7
@@ -96,43 +128,5 @@ public void TestWithdrawalAmountCannotBeBlank() {
      Assert.assertEquals("Withdrawal amount cannot be zero", withdrawal1.validateWithdrawalAmount("0.00"));
 }
   
-
- 
-/*
- @Test
- public void notEmpty() {
-	 //Testing a new deposit for correct values.  No empty values allowed. UAT 3.4
-	 Deposit newDeposit = new Deposit("O1001","A1001","");
-	 Assert.assertEquals("Deposit amount cannot be empty", newDeposit.validateDepositAmount(newDeposit.getDepositAmount())); 
- }
- 
- 
-
- @Test
- public void testAccountOwnerId() {
-	 AccountOwner accountOwner1 = new AccountOwner("John Doe", "PW1@");
-	 accountOwner1.put(); 
-	 Account account1 = new Account("O1001","Checking","1.00");
-	 account1.put();
-	 Deposit deposit1 = new Deposit ("O1001","A1004","1.00");
-	 //Assert.assertEquals("Invalid Account Owner ID", accountOwner1.validateOwnerId("O1001")); 
-	  Assert.assertEquals("valid", accountOwner1.validateOwnerId("O1001"));
-	  Assert.assertEquals("Invalid Account Owner ID", accountOwner1.validateOwnerId("O1002")); 
-	 //Assert.assertEquals("valid", accountOwner1.validateOwnerId("O1002")); 
-	  }
-
- @Test
- public void testAccountOwnerPassword() {
-	 AccountOwner accountOwner1 = new AccountOwner("John Doe", "PW1@");
-	 accountOwner1.put(); 
-	 Account account1 = new Account("O1002","Checking","1.00");
-	 account1.put(); 
-	 Deposit deposit1 = new Deposit ("O1002","A1004","1.00");
-	 //Assert.assertEquals("valid", (PasswordManager.authenticate(accountOwner1.getPassword(), "P$2222"))); 
-	 Assert.assertEquals("Invalid Password", (PasswordManager.authenticate(accountOwner1.getPassword(), "P$2222")));
-	 //Assert.assertEquals("Invalid Password", (PasswordManager.authenticate(accountOwner1.getPassword(), "PW1@")));
-	 Assert.assertEquals("valid", (PasswordManager.authenticate(accountOwner1.getPassword(), "PW1@"))); 
-	 
- } */
  
 }//End DepositTest

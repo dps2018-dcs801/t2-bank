@@ -81,6 +81,9 @@ public class Withdrawal implements Serializable {
 		return (withdrawal);
 	}
 	public String validateWithdrawalAmount(String withdrawalAmount) {
+		System.out.println ("The account id for newWithdrawal inside the validateWithdrawalAmount function is " +  this.data.accountId );
+		if (withdrawalAmount.equals(""))
+			return ("Withdrawal amount cannot be empty");
 		if ((withdrawalAmount.charAt(0)) == (' '))
 			return ("Withdrawal amount cannot be blank");
 		if (Utilities.isNegative(withdrawalAmount))
@@ -93,6 +96,16 @@ public class Withdrawal implements Serializable {
 		cents = Utilities.toCents(withdrawalAmount);
 	 	if ((cents) == 0)
 		    return ("Withdrawal amount cannot be zero");
+	 	System.out.println ("The account id just before newAccount inside the validateWithdrawalAmount function is " +  this.data.accountId );
+	 	System.out.println ("The account id for newAccount inside the validateWithdrawalAmount function should be " +  Account.get(this.data.accountId) );
+	 	Account newAccount = Account.get(this.data.accountId);
+	 	System.out.println ("The account id for newAccount after assignment is " +  newAccount.getBalance() );
+		long centsWithdrawalAmount = 0;
+		long centsBalance = 0;
+		centsWithdrawalAmount = Utilities.toCents(withdrawalAmount);
+		centsBalance = Utilities.toCents(newAccount.getBalance());
+		if (centsWithdrawalAmount > centsBalance)
+			return ("Withdrawal amount cannot be greater than balance");
 		
 		return ("valid");
 	}
