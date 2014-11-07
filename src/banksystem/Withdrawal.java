@@ -81,12 +81,18 @@ public class Withdrawal implements Serializable {
 		return (withdrawal);
 	}
 	public String validateWithdrawalAmount(String withdrawalAmount) {
+		if ((withdrawalAmount.charAt(0)) == (' '))
+			return ("Withdrawal amount cannot be blank");
 		if (Utilities.isNegative(withdrawalAmount))
 			return ("Withdrawal amount cannot be negative");
 		if (!Utilities.isNumeric(withdrawalAmount)) {
 		 	return ("Withdrawal amount must be numeric");}
 		if (!Utilities.isMoney(withdrawalAmount)) {
 			return ("Amount must be dollars and cents");}
+		long cents = 0;
+		cents = Utilities.toCents(withdrawalAmount);
+	 	if ((cents) == 0)
+		    return ("Withdrawal amount cannot be zero");
 		
 		return ("valid");
 	}
@@ -116,24 +122,5 @@ public class Withdrawal implements Serializable {
 		else
 			return (AccountOwner.validateOwnerId(this.data.ownerId));
 	}
-	// Inserted Testing withdrawal amounts cannot be blank.  PVasseur 11/1/14
-		public static String validateWithdrawalAmountNotBlank(String withdrawalAmount) {
-			
-			
-				if (!Utilities.isNumeric(withdrawalAmount)) 
-					return ("Withdrawal amount cannot be blank");
-			 	else
-					return "valid";	
-				}
-		 	
-		// Inserted Testing withdrawal amounts cannot be zero. PVasseur 11/1/14
-			public static String validateWithdrawalAmountCannotBeZero(String withdrawalAmount) {
-				long cents = 0;
-				cents = Utilities.toCents(withdrawalAmount);
-			 	if ((cents) == 0)
-				    return ("Withdrawal amount cannot be zero");
-				        else
-					return "valid";	
-			 	}
 }
 	

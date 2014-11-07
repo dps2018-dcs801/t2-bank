@@ -31,7 +31,7 @@ public class WithdrawalTest  {
 
  @Test
  public void UpdateWithdrawal(){
-	    //Testing withdrawal amount and update account to new balance. UAT 5.1
+	    //Testing proper password and withdrawal amount updates account to correct new balance. UAT 5.1
 	 	AccountOwner newAccountOwner = new AccountOwner("Michael Powell", "P$1111");
 	    newAccountOwner.put();
 	    AccountOwner newAccountOwner2 = new AccountOwner("Ann Singh", "P$2222");
@@ -58,39 +58,47 @@ public class WithdrawalTest  {
  
  @Test
  public void WithdrawalNotNegative() { 
-	    //Testing deposits do not contain a negative amount. UAT 5.2
-	    Withdrawal withdrawal = new Withdrawal();
-	    //Assert.assertEquals("valid", withdrawal.validateWithdrawalAmount("-100"));
-	    Assert.assertEquals("Withdrawal amount cannot be negative", withdrawal.validateWithdrawalAmount("-100"));
+	 //Testing withdrawals do not contain a negative amount. UAT 5.2
+	 Withdrawal withdrawal = new Withdrawal();
+	 //Assert.assertEquals("valid", withdrawal.validateWithdrawalAmount("-100"));
+	 Assert.assertEquals("Withdrawal amount cannot be negative", withdrawal.validateWithdrawalAmount("-100"));
  }
  
  @Test 
-//5.7
 public void testWithdrawalAmountIsNumeric() {
-Withdrawal withdrawal1 = new Withdrawal ("O1002","A1004","1.00");
-Assert.assertEquals("Withdrawal amount must be numeric",  withdrawal1.validateWithdrawalAmount("23w")); 
-Assert.assertEquals("valid", withdrawal1.validateWithdrawalAmount("23.00")) ; 
+	//Testing withdrawals do not contain any char or string data. UAT 5.7
+	 Withdrawal withdrawal1 = new Withdrawal ("O1002","A1004","1.00");
+	 Assert.assertEquals("Withdrawal amount must be numeric",  withdrawal1.validateWithdrawalAmount("23w")); 
+	 Assert.assertEquals("valid", withdrawal1.validateWithdrawalAmount("23.00")) ; 
 }
 
  @Test 
-//5.8
 public void testwithdrawalAmountMustBeDollarsAndCents () {
-Withdrawal withdrawal1 = new Withdrawal ("O1002","A1004","50.00");
-Assert.assertEquals("Amount must be dollars and cents", withdrawal1.validateWithdrawalAmount("1.234"));
-Assert.assertEquals("valid", withdrawal1.validateWithdrawalAmount("1.23")); 
+	//Testing withdrawals do not contain more than two decimal places. UAT 5.8
+	 Withdrawal withdrawal1 = new Withdrawal ("O1002","A1004","50.00");
+	 Assert.assertEquals("Amount must be dollars and cents", withdrawal1.validateWithdrawalAmount("1.234"));
+	 Assert.assertEquals("valid", withdrawal1.validateWithdrawalAmount("1.23")); 
 }
+ 
+ @Test
+public void TestWithdrawalAmountCannotBeBlank() {
+	 //Testing withdrawals do not contain spaces (blanks). UAT 5.9
+	 Withdrawal withdrawal1 = new Withdrawal ("O1002","A1004","50.00");
+	 Assert.assertEquals("valid", withdrawal1.validateWithdrawalAmount("1.00"));
+	 Assert.assertEquals("Withdrawal amount cannot be blank", withdrawal1.validateWithdrawalAmount(" "));
+}
+	
+  @Test
+ 	public void TestWithdrawalAmountCannotBeZero() {
+	 //Testing withdrawals do not contain a zero amount. UAT 5.10
+	 Withdrawal withdrawal1 = new Withdrawal ("O1002","A1004","50.00");
+	 Assert.assertEquals("valid", withdrawal1.validateWithdrawalAmount("1.00"));
+     Assert.assertEquals("Withdrawal amount cannot be zero", withdrawal1.validateWithdrawalAmount("0.00"));
+}
+  
 
  
 /*
- @Test
- public void notSpaces() {
-	 //Testing a new deposit for correct values.  No spaces allowed. UAT 3.3
-	 Deposit newDeposit = new Deposit("O1001","A1001","    ");
-	 Assert.assertEquals("Deposit amount cannot be space(s)", newDeposit.validateDepositAmount(newDeposit.getDepositAmount()));
-	 Assert.assertEquals("Deposit amount cannot be space(s)", newDeposit.validateDepositAmount(" ")); 
- }
- 
-
  @Test
  public void notEmpty() {
 	 //Testing a new deposit for correct values.  No empty values allowed. UAT 3.4
@@ -99,19 +107,6 @@ Assert.assertEquals("valid", withdrawal1.validateWithdrawalAmount("1.23"));
  }
  
  
- @Test 
- public void testDepositAmountCannotBeZero() {
-	 //Testing deposit amounts cannot be any variation of 0.  UAT 3.5
-	 Deposit deposit1 = new Deposit ("O1002","A1004","1.00");
-     //Assert.assertEquals("valid", deposit1.validateDepositAmount("0.00")) ;
-	 Assert.assertEquals("Deposit amount cannot be zero", deposit1.validateDepositAmount("0.00")) ; 
-	 Assert.assertEquals("Deposit amount cannot be zero", deposit1.validateDepositAmount("00")) ;  
-	 //Assert.assertEquals("valid", deposit1.validateDepositAmount("0")) ;    
-	 Assert.assertEquals("Deposit amount cannot be zero", deposit1.validateDepositAmount("0")) ;    
-	 //Assert.assertEquals("Deposit amount cannot be zero", deposit1.validateDepositAmount("1.00")) ; 
-	 Assert.assertEquals("valid", deposit1.validateDepositAmount("1.00")) ; 
-}
-
 
  @Test
  public void testAccountOwnerId() {
@@ -139,30 +134,5 @@ Assert.assertEquals("valid", withdrawal1.validateWithdrawalAmount("1.23"));
 	 Assert.assertEquals("valid", (PasswordManager.authenticate(accountOwner1.getPassword(), "PW1@"))); 
 	 
  } */
-  @Test
-	/* 5.9  by PVasseur - Given that Account Owner ID O1002 exists and the Password is P$2222 and account ID A1004 exists 
-	 and the balance is 100 and we are making a withdrawal
-     When we enter Account Owner O1002, Password P$2222, Account ID A1004 and withdrawal amount space(s)
-       then we should get an error message = Withdrawal amount cannot be blank */
-	public void TestWithdrawalAmountCannotBeBlank() {
-	 //Modified on 10/30/14 by PVasseur
-	 // Assert.assertEquals("valid", Withdrawal.validateWithdrawalAmountNotBlank("1.00")); // green
-     // Assert.assertEquals("Withdrawal amount cannot be blank", Withdrawal.validateWithdrawalAmountNotBlank(" "));	//green
-     // Assert.assertEquals("valid", Withdrawal.validateWithdrawalAmountNotBlank(" ")); // red
-     // Assert.assertEquals("Withdrawal amount cannot be blank", Withdrawal.validateWithdrawalAmountNotBlank("1.00"));	//red
-		}
-	
-  @Test
-	/* 5.10  by PVasseur -  Given that Account Owner ID O1002 exists and the Password is P$2222 and account ID A1004 exists 
-	 and the balance is 100 and we are making a withdrawal
-     When we enter Account Owner O1002, Password P$2222, Account ID A1004 and withdrawal amount is zero
-      Then we should get an error message = Withdrawal amount cannot be zero */
- 	public void TestWithdrawalAmountCannotBeZero() {
-	 //Modified on 10/31/14 by PVasseur
-	 //	Assert.assertEquals("valid", Withdrawal.validateWithdrawalAmountCannotBeZero("1.00")); // green
-     //	Assert.assertEquals("Withdrawal amount cannot be zero", Withdrawal.validateWithdrawalAmountCannotBeZero("0.00"));//green
-     // Assert.assertEquals("valid", Withdrawal.validateWithdrawalAmountCannotBeZero("0.00")); // red
-     //	Assert.assertEquals("Withdrawal amount cannot be zero", Withdrawal.validateWithdrawalAmountCannotBeZero("1.00"));//red	
-		   }
-  
+ 
 }//End DepositTest
