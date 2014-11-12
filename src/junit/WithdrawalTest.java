@@ -23,6 +23,23 @@ public class WithdrawalTest  {
   Database.setFileName("test.dat");
   dataBase.eraseFile();
   dataBase.load();
+  AccountOwner newAccountOwner = new AccountOwner("Michael Powell", "P$1111");
+  newAccountOwner.put();
+  AccountOwner newAccountOwner2 = new AccountOwner("Ann Singh", "P$2222");
+  newAccountOwner2.put();
+  
+  
+  Account newAccount = new Account("O1001", "Checking", "50.00");
+  newAccount.put();
+  Account newAccount2 = new Account("O1001", "Savings", "50.00");
+  newAccount2.put();
+  Account newAccount3 = new Account("O1002", "Savings", "50.00");
+  newAccount3.put();
+  Account newAccount4 = new Account("O1002", "Checking", "100.00");
+  newAccount4.put();
+  
+  Assert.assertEquals("A1004", Account.get("A1004").getId());
+  Assert.assertEquals("O1002", AccountOwner.get("O1002").getId());  
  }
 
  @After
@@ -32,26 +49,14 @@ public class WithdrawalTest  {
  @Test
  public void UpdateWithdrawal(){
 	    //Testing proper password and withdrawal amount updates account to correct new balance. UAT 5.1
-	 	AccountOwner newAccountOwner = new AccountOwner("Michael Powell", "P$1111");
-	    newAccountOwner.put();
-	    AccountOwner newAccountOwner2 = new AccountOwner("Ann Singh", "P$2222");
-	    newAccountOwner2.put();
-	    
-	    
-	 	Account newAccount = new Account("O1001", "Checking", "50.00");
-	    newAccount.put();
-	    Account newAccount2 = new Account("O1001", "Savings", "50.00");
-	    newAccount2.put();
-	    Account newAccount3 = new Account("O1002", "Savings", "50.00");
-	    newAccount3.put();
-	    Account newAccount4 = new Account("O1002", "Checking", "100.00");
-	    newAccount4.put();
+	 	
 	    
 	    
 	 	Withdrawal newWithdrawal = new Withdrawal("O1002", "A1004", "50.00");
 	    
 	    Assert.assertEquals("Invalid Password", newWithdrawal.updateBalance("P@1234"));
 	    Assert.assertEquals("valid", newWithdrawal.updateBalance("P$2222"));
+	    Account newAccount4 = Account.get(newWithdrawal.getAccountId());
 	    Assert.assertEquals("50.00", newAccount4.getBalance());
  }
 
@@ -68,21 +73,7 @@ public class WithdrawalTest  {
  @Test
  public void amountNotGreaterThanBalance() {
 	//Testing withdrawal amounts are not greater than balances, so there cannot be negative balances after withdrawing. UAT 5.5
-	 AccountOwner newAccountOwner = new AccountOwner("Michael Powell", "P$1111");
-    newAccountOwner.put();
-    AccountOwner newAccountOwner2 = new AccountOwner("Ann Singh", "P$2222");
-    newAccountOwner2.put();
-    
-    
- 	Account newAccount = new Account("O1001", "Checking", "50.00");
-    newAccount.put();
-    Account newAccount2 = new Account("O1001", "Savings", "50.00");
-    newAccount2.put();
-    Account newAccount3 = new Account("O1002", "Savings", "50.00");
-    newAccount3.put();
-    Account newAccount4 = new Account("O1002", "Checking", "100.00");
-    newAccount4.put();
-	 
+	
 	 Withdrawal newWithdrawal = new Withdrawal("O1002", "A1004", "250.00");
 	 System.out.println ("The account id for newWithdrawal is " +  newWithdrawal.getAccountId() );
 	 Assert.assertEquals("Withdrawal amount cannot be greater than balance", newWithdrawal.validateWithdrawalAmount("250.00")); 

@@ -128,6 +128,7 @@ public class Withdrawal implements Serializable {
 			{
 				Account newAccount = Account.get(this.data.accountId);
 				newAccount.subtract(this.data.withdrawalAmount);
+				newAccount.put();
 				return ("valid");
 			}
 			else
