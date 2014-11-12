@@ -100,7 +100,7 @@ public class Transfer implements Serializable {
 		if (centsTransferAmount > centsFromBalance)
 			return ("Transfer amount cannot be greater than the From Account balance");
 		if (Utilities.isNegative(transferAmount))
-			return ("Transfer amount cannot negative");
+			return ("Transfer amount cannot be negative");
 		if (!Utilities.isNumeric(transferAmount)) 
 		 	return ("Transfer amount must be numeric");
 		if (!Utilities.isMoney(transferAmount)) 

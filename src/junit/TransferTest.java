@@ -112,7 +112,7 @@ public class TransferTest  {
 	 //Testing transfer amounts do not contain a negative amount. UAT 6.7
 	 //ASK CUSTOMER FOR TYPO CLARIFICATION ON MESSAGE SPECIFIED IN UAT
 	 Transfer transfer = new Transfer("O1001", "A1001",  "A1002", "-25.00");
-	 Assert.assertEquals("Transfer amount cannot negative", transfer.validateTransferAmount(transfer.getTransferAmount()));
+	 Assert.assertEquals("Transfer amount cannot be negative", transfer.validateTransferAmount(transfer.getTransferAmount()));
  }
  
  
