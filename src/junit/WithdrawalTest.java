@@ -60,6 +60,59 @@ public class WithdrawalTest  {
 	    Assert.assertEquals("50.00", newAccount4.getBalance());
  }
 
+5.3    Given that Account Owner ID O1002 exists and the Password is P$2222 and account ID A1004 exists and the balance is 100 and we are making a withdrawal
+  When we enter Account Owner O1002, Password P$2222, Account ID A1004 and withdrawal amount 100
+  Then the account should be – Account Owner ID = O1002, Account ID = A1004, Account Type = Checking, Balance = 0.00
+
+
+@Test public void UpdateWithdrawal()
+{          
+//Testing withdrawal amount and update account to new balance. UAT 5.3
+AccountOwner newAccountOwner = new AccountOwner("Michael Powell", "P$1111");          
+newAccountOwner.put();          
+AccountOwner newAccountOwner2 = new AccountOwner("Ann Singh", "P$2222");          
+newAccountOwner2.put();
+Account newAccount = new Account("O1001", "Checking", "50.00");
+newAccount.put();          
+Account newAccount2 = new Account("O1001", "Savings", "50.00");
+newAccount2.put();
+Account newAccount3 = new Account("O1002", "Savings", "50.00");
+newAccount3.put();
+Account newAccount4 = new Account("O1002", "Checking", "100.00");          
+newAccount4.put();
+Withdrawal newWithdrawal = new Withdrawal("O1002", "A1004", "100.00");
+Assert.assertEquals("Invalid Password", newWithdrawal.updateBalance("P@1234"));
+Assert.assertEquals("valid", newWithdrawal.updateBalance("P$2222"));
+Assert.assertEquals("0.00", newAccount4.getBalance());
+}
+
+
+5.4    Given that Account Owner ID O1002 exists and the Password is P$2222 and account ID A1004 exists and the balance is 100 and we are making a withdrawal
+  When we enter Account Owner O1002, Password P$2222, Account ID A1004 and withdrawal amount 50.25
+  Then the account should be – Account Owner ID = O1002, Account ID = A1004, Account Type = Checking, Balance = 49.75
+
+
+
+@Test public void UpdateWithdrawal()
+{          
+//Testing withdrawal amount and update account to new balance. UAT 5.1
+AccountOwner newAccountOwner = new AccountOwner("Michael Powell", "P$1111");          
+newAccountOwner.put();          
+AccountOwner newAccountOwner2 = new AccountOwner("Ann Singh", "P$2222");          
+newAccountOwner2.put();
+Account newAccount = new Account("O1001", "Checking", "50.00");
+newAccount.put();          
+Account newAccount2 = new Account("O1001", "Savings", "50.00");
+newAccount2.put();
+Account newAccount3 = new Account("O1002", "Savings", "50.00");
+newAccount3.put();
+Account newAccount4 = new Account("O1002", "Checking", "100.00");          
+newAccount4.put();
+Withdrawal newWithdrawal = new Withdrawal("O1002", "A1004", "50.25");
+Assert.assertEquals("Invalid Password", newWithdrawal.updateBalance("P@1234"));
+Assert.assertEquals("valid", newWithdrawal.updateBalance("P$2222"));
+Assert.assertEquals("49.75", newAccount4.getBalance());
+
  
  @Test
  public void WithdrawalNotNegative() { 
