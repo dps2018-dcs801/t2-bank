@@ -158,7 +158,6 @@ public class Account implements Serializable {
 	}
 
 	public static Account get(String accountId) {
-		System.out.println ("The account id passed into Account.get() is " +  accountId );
 		AccountData accountData = (AccountData) Database.get(accountId);
 		if (accountData == null) {
 			return (null);
