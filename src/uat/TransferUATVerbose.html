@@ -17,8 +17,10 @@ exists and the balance is <span concordion:set="#fromBalance">150.00</span>
 and Account ID <span concordion:set="#givenToAccountId">A1003</span> 
 exists and the balance is <span concordion:set="#toBalance">100.00</span> 
 
+
 <span concordion:execute="#toAccount = makeAccount(#givenOwnerId, #givenToAccountId, #checking, #toBalance)"></span>
 <span concordion:execute="#fromAccount = makeAccount(#givenOwnerId, #givenFromAccountId, #checking, #fromBalance)"></span>
+
 
 and we are making a transfer
 </p>
@@ -62,6 +64,8 @@ and transfer amount <span concordion:set="#transferAmount">250</span>
 </p>
 <p>
 
+<span concordion:execute="#toAccount = makeAccount(#givenOwnerId, #givenToAccountId, #checking, #toBalance)"></span>
+<span concordion:execute="#fromAccount = makeAccount(#givenOwnerId, #givenFromAccountId, #checking, #fromBalance)"></span>
 
 Then the account balances should be 
 <span concordion:execute="#result = makeTransfer(#password, #fromBalance, #toBalance, #transferAmount, #givenOwnerId, #fromAccountId, #toAccountId)"></span>
