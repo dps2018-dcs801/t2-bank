@@ -52,7 +52,7 @@ public class TransferUATVerboseTest extends ConcordionTestCase {
 		System.out.println ( "toAccountId" +  toAccountId );
 		System.out.println ( "transferAmount" +  transferAmount );
 		
-		String result = transfer.validate(tryPassword);
+		String result = transfer.transfer(tryPassword);
 		System.out.println ( "Result of transfer:" + result );
 		TransferUAT transferUAT = new TransferUAT();
 		
