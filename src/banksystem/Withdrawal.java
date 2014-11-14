@@ -100,6 +100,8 @@ public class Withdrawal implements Serializable {
 		long centsBalance = 0;
 		centsWithdrawalAmount = Utilities.toCents(withdrawalAmount);
 		centsBalance = Utilities.toCents(newAccount.getBalance());
+		System.out.println("The value of balance is: " + centsBalance);
+		System.out.println("The value of withdrawal is: " + centsWithdrawalAmount);
 		if (centsWithdrawalAmount > centsBalance)
 			return ("Withdrawal amount cannot be greater than balance");
 		
@@ -122,15 +124,31 @@ public class Withdrawal implements Serializable {
 		if (AccountOwner.validateOwnerId(this.data.ownerId).equals("valid"))
 			if (PasswordManager.authenticate(password, newAccountOwner.getPassword()) == "valid")
 			{
-				Account newAccount = Account.get(this.data.accountId);
-				newAccount.subtract(this.data.withdrawalAmount);
-				newAccount.put();
-				return ("valid");
+				if (Account.validateAccountExists(this.data.accountId).equals("valid"))
+				{
+					Account newAccount = Account.get(this.data.accountId);
+					if (newAccount.getOwnerId().equals(this.data.ownerId))
+					{
+						if (validateWithdrawalAmount(this.data.withdrawalAmount).equals("valid"))
+						{
+							newAccount.subtract(this.data.withdrawalAmount);
+							newAccount.put();
+							return ("valid");
+						}
+						else
+							return (validateWithdrawalAmount(this.data.withdrawalAmount));
+					}
+					else
+						return ("Invalid Account ID");						
+				}
+				else
+					return (Account.validateAccountExists(this.data.accountId));
 			}
 			else
 				return (AccountOwner.authenticate(password, this.data.ownerId));
 		else
 			return (AccountOwner.validateOwnerId(this.data.ownerId));
 	}
+	
 }
 	

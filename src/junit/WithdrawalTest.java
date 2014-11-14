@@ -7,11 +7,10 @@ import org.junit.Test;
 
 import banksystem.Account;
 import banksystem.AccountOwner;
-import banksystem.Deposit;
-import banksystem.DepositData;
 import banksystem.PasswordManager;
 import banksystem.Utilities;
 import banksystem.Withdrawal;
+import banksystem.WithdrawalData;
 import database.Database;
 
 public class WithdrawalTest  {
@@ -55,6 +54,7 @@ public class WithdrawalTest  {
 	    Assert.assertEquals("valid", newWithdrawal.updateBalance("P$2222"));
 	    Account newAccount4 = Account.get(newWithdrawal.getAccountId());
 	    Assert.assertEquals("200.00", newAccount4.getBalance());
+	    newWithdrawal.put();
 	    
 	    
 	    newWithdrawal = new Withdrawal("O1002", "A1004", "100.00");
@@ -70,7 +70,7 @@ public class WithdrawalTest  {
 	    
  }
 
-
+/*
  @Test
  public void WithdrawalNotNegative() { 
 	 //Testing withdrawals do not contain a negative amount. UAT 5.2
@@ -140,5 +140,5 @@ public class WithdrawalTest  {
 	 Assert.assertEquals("valid", withdrawal1.validateWithdrawalAmount(withdrawal1.getWithdrawalAmount()));
 }
   
- 
+ */
 }//End DepositTest

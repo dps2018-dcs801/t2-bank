@@ -131,6 +131,7 @@ public class TransferCreateView extends JPanel {
 						toAccountIdString, transferAmount);
 				String result = transfer.transfer(password);
 				if (result.equals("valid")) {
+					transfer.put(); //added by MSidaras because it was missing by RDiGiorgio
 					transferIdTextField.setText(Transfer.getNextId());
 				} else {
 					errorMessage.setText(result);
