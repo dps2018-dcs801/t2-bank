@@ -145,7 +145,7 @@
 
 <p>
     <span concordion:execute="#result = makeWithdrawal(#password, #balance, #withdrawal, #givenOwnerId, #givenAccountId)"></span>
-    Then we should get an error message = <span concordion:assertEquals="#result.status">You must enter a withdrawal amount</span>
+    Then we should get an error message = <span concordion:assertEquals="#result.status">Withdrawal amount cannot be empty</span>
 </p>
 
 <h4>5.7</h4>
@@ -188,7 +188,7 @@ withdrawal amount is <span concordion:set="#withdrawal">50.234</span>
 </p>
 <p>
     <span concordion:execute="#result = makeWithdrawal(#password, #balance, #withdrawal, #givenOwnerId, #givenAccountId)"></span>
-    Then we should get an error message = <span concordion:assertEquals="#result.status">Withdrawal amount must be dollars and cents</span>
+    Then we should get an error message = <span concordion:assertEquals="#result.status">Amount must be dollars and cents</span>
 </p>
 
 
@@ -211,7 +211,7 @@ withdrawal amount is <span concordion:set="#withdrawal">50.234</span>
 </p>
 
 <p>
-    Then we should get an error message = <span concordion:assertEquals="#result.status">Withdrawal amount cannot be space(s)</span>
+    Then we should get an error message = <span concordion:assertEquals="#result.status">Withdrawal amount cannot be blank</span>
 </p>
 </p>
 
