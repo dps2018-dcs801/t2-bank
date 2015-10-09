@@ -81,4 +81,20 @@ public class AccountOwnerTest {
 	}
 	
 
+	@Test
+	//Use advanced goat recongnition tech to detect goats
+	public void isAccountOwnerAGoat()
+	{
+		String name = "Goat";
+		Assert.assertEquals("valid", AccountOwner.validateName(name));
+	}
+	
+	@Test
+	//Use advanced zombie recongnition tech to detect goats
+	public void isAccountOwnerAZombie()
+	{
+		String name = "Zombie";
+		Assert.assertEquals("valid", AccountOwner.validateName(name));
+	}
+	
 }
