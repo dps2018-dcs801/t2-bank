@@ -67,14 +67,27 @@ public class AccountOwner implements Serializable {
 
 	public AccountOwner() {
 	}
+	
+	public String authenticate(String password) {
+		String result = PasswordManager.authenticate(password, getPassword());
 
-	public  static String authenticate(String password, AccountOwner owner) {
-		return (PasswordManager.authenticate(password, owner.getPassword()));
+		if (result == "Invalid Password") {
+			if (data.failedAuthenticationAttempts >= 2) {
+				result = "Contact bank for password reset";
+			} else {
+				data.failedAuthenticationAttempts++;
+				if (data.failedAuthenticationAttempts == 2) {
+					result = "Two failed login attempts – contact bank for password reset";
+				}				
+			}			
+		}
+		
+		return result;
 	}
 
 	public static String authenticate(String password, String id) {
 		AccountOwner owner = get(id);
-		return (authenticate(password, owner));
+		return (owner.authenticate(password));
 	}
 
 	public void put() {
