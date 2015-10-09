@@ -7,11 +7,16 @@ import org.junit.Before;
 import org.junit.Test;
 
 import banksystem.AccountOwner;
+import database.Database;
 
 public class AccountOwnerMultipleTest {
+	Database dataBase = Database.getInstance();
 
 	@Before
 	public void setUp() throws Exception {
+		Database.setFileName("test.dat");
+		dataBase.eraseFile();
+		dataBase.load();
 	}
 
 	@Test
