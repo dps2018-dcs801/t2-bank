@@ -77,7 +77,7 @@ public class AccountOwner implements Serializable {
 		else if (result == "Invalid Password") {
 			data.failedAuthenticationAttempts++;
 			if (data.failedAuthenticationAttempts == 2) {
-				result = "Two failed login attempts – contact bank for password reset";
+				result = "Two failed login attempts â€“ contact bank for password reset";
 			}				
 		}			
 		
@@ -134,4 +134,41 @@ public class AccountOwner implements Serializable {
 	public void setPassword(String password) {
 		this.data.password = password;
 	}
+	
+		//locks current account
+	public void lockAccount()
+	{
+		data.failedAuthenticationAttempts=2;
+	}
+	
+	//unlocks current account based on all parameters passed being true / correct
+	public String unlockAccount(
+				String ownerName, 
+				String accountOwnerId,
+				String accountType,
+				String accountId, 
+				String accountBalance)
+	{
+		
+		AccountData accountData = (AccountData) Database.get(accountId);
+		
+		if(ownerName.equalsIgnoreCase(data.name) &&
+		   accountOwnerId.equalsIgnoreCase(accountData.ownerId) &&	
+		   accountType.equalsIgnoreCase(accountData.accountType) &&
+		   accountBalance.equalsIgnoreCase(accountData.balance)
+		  )
+		{
+			data.failedAuthenticationAttempts=0;
+			
+			return "Unlock successful";
+			
+		}
+		else
+		{
+			return "Information provided is not correct.  Game Over, thank you for playing! ;-)";
+			
+		}	
+			
+	}
+	
 }
