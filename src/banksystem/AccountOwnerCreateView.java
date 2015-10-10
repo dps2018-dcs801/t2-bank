@@ -110,6 +110,10 @@ public class AccountOwnerCreateView extends JPanel {
 				AccountOwner accountOwner = new AccountOwner(name,password);
 				String result = accountOwner.validate();
 				if (result.equals("valid")) {
+					/* Clear Name and Password on Submit */
+					passwordTextField.setText("");
+					accountOwnerNameTextField.setText("");
+					/* End of Clear Name and Password on Submit */
 					getErrorMessage().setText("");
 					getErrorMessage().setVisible(false);
 					accountOwner.put();
