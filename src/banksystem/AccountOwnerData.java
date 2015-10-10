@@ -19,6 +19,6 @@ public class AccountOwnerData implements Serializable {
 	
 	@Override
 	public String toString() {
-		return "AccountOwnerData [name=" + name + ", password=" + password + "]";
+		return "AccountOwnerData [name=" + name + ", password=" + password + ", failedAuthenticationAttempts="+failedAuthenticationAttempts+"]";
 	}
 }

@@ -36,6 +36,19 @@ public class AccountOwnerTest {
 	}
 	
 	@Test
+	public void authenticateOwner() {
+		AccountOwner accountOwner = new AccountOwner("Goat","1234$");
+		accountOwner.put();
+		assertEquals("Valid Password failed Authentication","valid", accountOwner.authenticate("1234$"));
+		assertEquals("Incorrect failure message first failed authentication","Invalid Password", accountOwner.authenticate("1235$"));
+		assertEquals("Valid Password failed Authentication","valid", accountOwner.authenticate("1234$"));
+		assertEquals("Incorrect failure message second failed authentication","Two failed login attempts – contact bank for password reset", accountOwner.authenticate("1236$"));
+		Assert.assertNotEquals("Valid Password did not fail after two failed attempts","valid", accountOwner.authenticate("1234$"));
+		assertEquals("Incorrect failure message third failed authentication","Contact bank for password reset", accountOwner.authenticate("1237$"));
+		Assert.assertNotEquals("Valid Password did not fail after three failed attempts","valid", accountOwner.authenticate("1234$"));		
+	}
+	
+	@Test
 	public void linkedAccount() {
 		AccountOwner accountOwner = new AccountOwner();
 		accountOwner.put();		

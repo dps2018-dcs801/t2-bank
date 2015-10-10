@@ -71,16 +71,15 @@ public class AccountOwner implements Serializable {
 	public String authenticate(String password) {
 		String result = PasswordManager.authenticate(password, getPassword());
 
-		if (result == "Invalid Password") {
-			if (data.failedAuthenticationAttempts >= 2) {
-				result = "Contact bank for password reset";
-			} else {
-				data.failedAuthenticationAttempts++;
-				if (data.failedAuthenticationAttempts == 2) {
-					result = "Two failed login attempts – contact bank for password reset";
-				}				
-			}			
-		}
+		if (data.failedAuthenticationAttempts >= 2) {
+			result = "Contact bank for password reset";
+		} 
+		else if (result == "Invalid Password") {
+			data.failedAuthenticationAttempts++;
+			if (data.failedAuthenticationAttempts == 2) {
+				result = "Two failed login attempts – contact bank for password reset";
+			}				
+		}			
 		
 		return result;
 	}
