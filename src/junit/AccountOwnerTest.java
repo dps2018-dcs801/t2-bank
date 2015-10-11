@@ -42,7 +42,7 @@ public class AccountOwnerTest {
 		assertEquals("Valid Password failed Authentication","valid", accountOwner.authenticate("1234$"));
 		assertEquals("Incorrect failure message first failed authentication","Invalid Password", accountOwner.authenticate("1235$"));
 		assertEquals("Valid Password failed Authentication","valid", accountOwner.authenticate("1234$"));
-		assertEquals("Incorrect failure message second failed authentication","Two failed login attempts – contact bank for password reset", accountOwner.authenticate("1236$"));
+		assertEquals("Incorrect failure message second failed authentication","Two failed login attempts - contact bank for password reset", accountOwner.authenticate("1236$"));
 		Assert.assertNotEquals("Valid Password did not fail after two failed attempts","valid", accountOwner.authenticate("1234$"));
 		assertEquals("Incorrect failure message third failed authentication","Contact bank for password reset", accountOwner.authenticate("1237$"));
 		Assert.assertNotEquals("Valid Password did not fail after three failed attempts","valid", accountOwner.authenticate("1234$"));		
@@ -95,7 +95,7 @@ public class AccountOwnerTest {
 	
 
 	@Test
-	//Use advanced goat recongnition tech to detect goats
+	//Use advanced goat recognition tech to detect goats
 	public void isAccountOwnerAGoat()
 	{
 		String name = "Goat";
@@ -103,11 +103,26 @@ public class AccountOwnerTest {
 	}
 	
 	@Test
-	//Use advanced zombie recongnition tech to detect goats
+	//Use advanced zombie recognition tech to detect goats
 	public void isAccountOwnerAZombie()
 	{
 		String name = "Zombie";
 		Assert.assertEquals("valid", AccountOwner.validateName(name));
+	}
+	
+	@Test
+	public void isAccountOwnerAnAlien()
+	{
+		String name = "Alien";
+		Assert.assertEquals("valid", AccountOwner.validateName(name));
+	}
+	
+	@Test
+	public void isAccountOwnerNameHaveMultipleEmptySpaces()
+	{
+		String name = "  ";
+		Assert.assertEquals("Name must not contain two consecutive spaces",
+				AccountOwner.validateName(name));
 	}
 	
 }

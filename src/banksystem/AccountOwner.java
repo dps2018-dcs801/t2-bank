@@ -43,6 +43,8 @@ public class AccountOwner implements Serializable {
 			return ("Name must be less than 30 characters");
 		} else if (name.length() < 2) {
 			return ("Name must be greater than 1 character");
+		} else if (name.contains("  ")) {
+			return ("Name must not contain two consecutive spaces");			
 		} else {
 			return ("valid");
 		}
@@ -77,7 +79,7 @@ public class AccountOwner implements Serializable {
 		else if (result == "Invalid Password") {
 			data.failedAuthenticationAttempts++;
 			if (data.failedAuthenticationAttempts == 2) {
-				result = "Two failed login attempts – contact bank for password reset";
+				result = "Two failed login attempts - contact bank for password reset";
 			}				
 		}			
 		
