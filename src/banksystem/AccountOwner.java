@@ -45,6 +45,12 @@ public class AccountOwner implements Serializable {
 			return ("Name must be greater than 1 character");
 		} else if (name.contains("  ")) {
 			return ("Name must not contain two consecutive spaces");			
+		} else if (name.startsWith(" ")) {
+			return ("Name must not start with a space");			
+		} else if (name.endsWith(" ")) {
+			return ("Name must not end with a space");	
+		} else if (name.contains("9")) {
+			return ("Name must not contain a number");	
 		} else {
 			return ("valid");
 		}

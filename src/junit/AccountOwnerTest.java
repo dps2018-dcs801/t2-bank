@@ -125,4 +125,25 @@ public class AccountOwnerTest {
 				AccountOwner.validateName(name));
 	}
 	
+	@Test
+	public void isAccountOwnerNameStartWithEmptySpace()
+	{
+		String name = " John";
+		Assert.assertEquals("Name must not start with a space",
+				AccountOwner.validateName(name));
+	}
+	
+	@Test
+	public void isAccountOwnerNameEndWithEmptySpace()
+	{
+		String name = "John ";
+		Assert.assertEquals("Name must not end with a space",
+				AccountOwner.validateName(name));
+	}
+	public void isAccountOwnerNameContainsNumber()
+	{
+		String name = "9";
+		Assert.assertEquals("Name must not contain a number",
+				AccountOwner.validateName(name));
+	}
 }
